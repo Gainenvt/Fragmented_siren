@@ -98,9 +98,8 @@ private void Update()
             engagementRange,
             playerLayerMask
         );
-
-        Debug.Log("Player Visible: " + isPlayerVisible);
-        Debug.Log("Player In Range: " + isPlayerInRange);
+    
+      
     }
 
 

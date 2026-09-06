@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - EnemyProjectile
   - drag
+  - Slider
+  - slider
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - slider
   - 
   - 
   - 

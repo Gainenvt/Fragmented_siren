@@ -3,20 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
     private PlayerInputActions input;
     private Rigidbody rb;
     private Player player;
-
     private Vector2 moveInput;
     private Vector2 lookInput;
-
     private float xRotation = 0f;
-
     private bool isDescending;
     private bool isAscending;
-
-
 
     // GRAB SYSTEM
 
@@ -31,8 +25,6 @@ private float grabDistance;
 public float scrollSpeed = 2f;
 public float minGrabDistance = 1f;
 public float maxGrabDistance = 10f;
-[SerializeField] private float verticalOffset = 0f;
-
    
     // MOVEMENT SETTINGS
     
@@ -192,7 +184,7 @@ public float maxGrabDistance = 10f;
         }
     }
 
-    // SPEAR ATTACK
+    // SPEAR ATK
 
     private void OnSpearATK(InputAction.CallbackContext context)
     {
@@ -215,42 +207,37 @@ public float maxGrabDistance = 10f;
         rb.linearVelocity = spawnPoint.forward * 10f;
     }
 
-    // GRAB INPUT
+    // GRAB action
 
-    private void OnGrab(InputAction.CallbackContext context)
+   private void OnGrab(InputAction.CallbackContext context)
+{
+    if (selectedObject == null)
     {
-        if (selectedObject == null)
+        Camera camera = PlayerCamera.GetComponent<Camera>();
+
+        Ray ray = camera.ScreenPointToRay(
+            Mouse.current.position.ReadValue()
+        );
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Camera camera = PlayerCamera.GetComponent<Camera>();
-
-            Ray ray = camera.ScreenPointToRay(
-                Mouse.current.position.ReadValue()
-            );
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (!hit.collider.CompareTag("drag"))
             {
-                if (!hit.collider.CompareTag("drag"))
-                {
-                    return;
-                }
-
-                selectedObject = hit.collider.gameObject;
-
-            
-            grabDistance = Vector3.Distance(
-            camera.transform.position,
-            selectedObject.transform.position);
-
-                Cursor.visible = false;
+                return;
             }
-        }
-        else
-        {
-            selectedObject = null;
 
-            Cursor.visible = true;
+            selectedObject = hit.collider.gameObject;
+
+            grabDistance = hit.distance;
         }
     }
+    else
+    {
+        selectedObject = null;
+
+        Cursor.visible = true;
+    }
+}
 
     private void OnRotateGrabbed(InputAction.CallbackContext context)
     {
@@ -266,7 +253,7 @@ public float maxGrabDistance = 10f;
 
     // GRAB MOVEMENT
 
-   private void GrabObject()
+    private void GrabObject()
 {
     if (selectedObject == null)
     {
@@ -275,15 +262,15 @@ public float maxGrabDistance = 10f;
 
     Camera camera = PlayerCamera.GetComponent<Camera>();
 
-    // Mouse wheel adjusts its position above/below the camera's center.
-    verticalOffset += Mouse.current.scroll.ReadValue().y * scrollSpeed;
+    Vector2 mousePosition =
+        Mouse.current.position.ReadValue();
 
-    Vector3 heldPosition =
-        camera.transform.position +
-        camera.transform.forward * grabDistance +
-        camera.transform.up * verticalOffset;
+    Ray ray = camera.ScreenPointToRay(mousePosition);
 
-    selectedObject.transform.position = heldPosition;
+    Vector3 worldPosition =
+        ray.GetPoint(grabDistance);
+
+    selectedObject.transform.position = worldPosition;
 }
 
     // Move
@@ -379,7 +366,7 @@ public float maxGrabDistance = 10f;
         return;
     }
 
-    float scroll = Mouse.current.scroll.ReadValue().y;
+    float scroll = Mouse.current.scroll.ReadValue().x ;
 
     grabDistance -= scroll * scrollSpeed * Time.deltaTime;
 

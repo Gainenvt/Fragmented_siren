@@ -1,52 +1,43 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Basesiren : MonoBehaviour
 {
     public int MaxHP = 100;
     public int MinHP = 0;
-
-    public bool isSubmerged = false;
     public int CurrentHP;
-    public bool isEnemyHit = false;
 
     public bool isEnemyDead = false;
 
-
-    void Start()
+    private void Start()
     {
         CurrentHP = MaxHP;
+
+        Debug.Log("Enemy spawned with HP: " + CurrentHP);
     }
 
-
-    void Update()
+    public void TakeDamage(int amount)
     {
-        if (CurrentHP <= MinHP && !isEnemyDead)
-        {
-            isEnemyDead = true;
-        }
-        Dead();
-    }
+        Debug.Log("Enemy took damage: " + amount);
 
-
-    private void Death(int amount)
-    {
         if (isEnemyDead) return;
 
         CurrentHP -= amount;
 
-        // Prevent HP from going below MinHP
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Enemy Health: " + CurrentHP);
+
+        if (CurrentHP <= MinHP)
+        {
+            isEnemyDead = true;
+            Dead();
+        }
     }
 
-
-private void Dead()
-{
-    if (isEnemyDead)
+    private void Dead()
     {
-        Debug.Log("Enemy died!");
+        Debug.Log("Enemy is dead!");
+
         Destroy(gameObject);
     }
-}
 }
