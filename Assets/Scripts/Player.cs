@@ -45,18 +45,23 @@ public class Player : MonoBehaviour
     }
 
 
-    private void Death(int amount)
+  public void TakeDamage(int amount)
     {
         if (isPlayerDead) return;
 
         CurrentHP -= amount;
 
-        // Min hp cap
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Player Health: " + CurrentHP);
-    }
 
+        if(CurrentHP <= MinHP)
+        {
+            isPlayerDead = true;
+            Debug.Log("Player has died!");
+            Dead();
+        }
+    }
 
     private void Dead()
     {
