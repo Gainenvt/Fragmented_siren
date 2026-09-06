@@ -7,7 +7,6 @@ public class MeleeHostileAi : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject projectilePrefab;
 
     [Header("Layers")]
     [SerializeField] private LayerMask Terrain;
@@ -22,8 +21,6 @@ public class MeleeHostileAi : MonoBehaviour
     [SerializeField] private float AttackCooldown = 1f;
     private bool isOnAttackCooldown;
 
-    [SerializeField] private float forwardMeleeForce = 10f;
-    [SerializeField] private float verticalMeleeForce = 5f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -33,6 +30,7 @@ public class MeleeHostileAi : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float meleeRadius = 1f;
     [SerializeField] private int meleeDamage = 10;
+    [SerializeField] private float knockbackForce = 12f;
     private bool isPlayerVisible;
     private bool isPlayerInRange;
     private Rigidbody rb;
@@ -127,11 +125,17 @@ private void Update()
 
         if (hit.TryGetComponent(out Rigidbody playerRb))
         {
-            Vector3 force = transform.forward * forwardMeleeForce
-                          + Vector3.up * verticalMeleeForce;
+           Vector3 knockbackDirection =
+        playerRb.position - transform.position;
 
-            playerRb.AddForce(force, ForceMode.Impulse);
+    knockbackDirection.y = 0f;
+    knockbackDirection.Normalize();
+
+    playerRb.AddForce(
+        knockbackDirection * knockbackForce,
+        ForceMode.VelocityChange);
         }
+
     }
 }
     private void FindPatrolPoint()
