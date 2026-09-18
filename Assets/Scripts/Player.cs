@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int MaxHP = 100;
-    public int MinHP = 0;
+    public float MaxHP = 100;
+    public float MinHP = 0;
 
     public bool isSubmerged = false;
-    public int CurrentHP;
+    public float CurrentHP;
     public bool isPlayerHit = false;
     public bool isPlayerDead = false;
 

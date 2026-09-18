@@ -11,8 +11,10 @@ public class PlayerMovement : MonoBehaviour
     private float xRotation = 0f;
     private bool isDescending;
     private bool isAscending;
+    private Vector3 knockbackVelocity;
+    [SerializeField] private float knockbackDecay = 20f;
 
-    // GRAB SYSTEM
+    
 
     // GRAB SYSTEM
 
@@ -88,6 +90,8 @@ public float maxGrabDistance = 10f;
 
         input.Player.Grab.performed += OnGrab;
         input.Player.RotateGrabbed.performed += OnRotateGrabbed;
+
+        
     }
 
     private void OnDisable()
@@ -296,7 +300,7 @@ public float maxGrabDistance = 10f;
 
         if (player.isSubmerged)
         {
-            verticalVelocity = movement.y * moveSPD;
+            verticalVelocity = movement.y * swimSpd;
         }
 
         if (isAscending)
@@ -308,12 +312,29 @@ public float maxGrabDistance = 10f;
             verticalVelocity = -swimSpd;
         }
 
-        rb.linearVelocity = new Vector3(
-            movement.x * moveSPD,
-            verticalVelocity,
-            movement.z * moveSPD
-        );
+        Vector3 normalMovementVelocity = new Vector3(
+    movement.x * moveSPD,
+    verticalVelocity,
+    movement.z * moveSPD
+);
+
+rb.linearVelocity = normalMovementVelocity + knockbackVelocity;
+
+knockbackVelocity = Vector3.MoveTowards(
+    knockbackVelocity,
+    Vector3.zero,
+    knockbackDecay * Time.fixedDeltaTime
+);
     }
+
+    //Knockback
+    public void ApplyKnockback(Vector3 direction, float strength)
+{
+    direction.y = 0f;
+    direction.Normalize();
+
+    knockbackVelocity = direction * strength;
+}
 
     // LOOK
 
