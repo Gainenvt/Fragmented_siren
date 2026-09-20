@@ -2338,6 +2338,9 @@ MonoBehaviour:
   CurrentHP: 0
   isPlayerHit: 0
   isPlayerDead: 0
+  isPlayerInvincible: 0
+  invincibilityDuration: 1
+  isDashing: 0
   deathScreen: {fileID: 1261630957}
 --- !u!54 &1856398737
 Rigidbody:

@@ -14,5 +14,9 @@ public class HPSlider : MonoBehaviour
          slider.value = 1;
      }
 
+     
+
+
+
 
 }

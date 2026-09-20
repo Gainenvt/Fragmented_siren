@@ -9,6 +9,9 @@ public class Player : MonoBehaviour
     public float CurrentHP;
     public bool isPlayerHit = false;
     public bool isPlayerDead = false;
+    public bool isPlayerInvincible = false;
+    public float invincibilityDuration = 1f;
+    public bool isDashing = false;
 
     [SerializeField] private GameObject deathScreen;
 

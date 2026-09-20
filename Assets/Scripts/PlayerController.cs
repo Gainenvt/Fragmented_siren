@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     private float xRotation = 0f;
     private bool isDescending;
     private bool isAscending;
+    private Vector3 movementDirection;
+    private bool isDashing;
+    
     private Vector3 knockbackVelocity;
     [SerializeField] private float knockbackDecay = 20f;
 
@@ -27,6 +31,9 @@ private float grabDistance;
 public float scrollSpeed = 2f;
 public float minGrabDistance = 1f;
 public float maxGrabDistance = 10f;
+private float dashSpeed = 10f;
+private float dashDuration = 0.4f;
+
    
     // MOVEMENT SETTINGS
     
@@ -51,7 +58,7 @@ public float maxGrabDistance = 10f;
     public GameObject projectilePrefab;
     public Transform spawnPoint;
 
-    // INITIALIZATION 
+     
 
     private void Awake()
     {
@@ -91,7 +98,8 @@ public float maxGrabDistance = 10f;
         input.Player.Grab.performed += OnGrab;
         input.Player.RotateGrabbed.performed += OnRotateGrabbed;
 
-        
+        input.Player.Dash.performed += OnDash;
+        input.Player.Dash.canceled += OnDash;
     }
 
     private void OnDisable()
@@ -115,6 +123,9 @@ public float maxGrabDistance = 10f;
 
         input.Player.Grab.performed -= OnGrab;
         input.Player.RotateGrabbed.performed -= OnRotateGrabbed;
+        
+        input.Player.Dash.performed -= OnDash;
+        input.Player.Dash.canceled -= OnDash;
 
         input.Disable();
     }
@@ -133,6 +144,17 @@ public float maxGrabDistance = 10f;
     private void FixedUpdate()
     {
         Move();
+    }
+
+
+
+    // DASH INPUT
+    private void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StartDash();
+        }
     }
 
     // MOVEMENT INPUT
@@ -279,53 +301,56 @@ public float maxGrabDistance = 10f;
 
     // Move
 
-    private void Move()
+   private void Move()
+{
+    if (isDashing)
     {
-        Vector3 movement;
-
-        if (player.isSubmerged)
-        {
-            movement =
-                PlayerCamera.right * moveInput.x +
-                PlayerCamera.forward * moveInput.y;
-        }
-        else
-        {
-            movement =
-                transform.right * moveInput.x +
-                transform.forward * moveInput.y;
-        }
-
-        float verticalVelocity = rb.linearVelocity.y;
-
-        if (player.isSubmerged)
-        {
-            verticalVelocity = movement.y * swimSpd;
-        }
-
-        if (isAscending)
-        {
-            verticalVelocity = swimSpd;
-        }
-        else if (isDescending)
-        {
-            verticalVelocity = -swimSpd;
-        }
-
-        Vector3 normalMovementVelocity = new Vector3(
-    movement.x * moveSPD,
-    verticalVelocity,
-    movement.z * moveSPD
-);
-
-rb.linearVelocity = normalMovementVelocity + knockbackVelocity;
-
-knockbackVelocity = Vector3.MoveTowards(
-    knockbackVelocity,
-    Vector3.zero,
-    knockbackDecay * Time.fixedDeltaTime
-);
+        return;
     }
+
+    if (player.isSubmerged)
+    {
+        movementDirection =
+            PlayerCamera.right * moveInput.x +
+            PlayerCamera.forward * moveInput.y;
+    }
+    else
+    {
+        movementDirection =
+            transform.right * moveInput.x +
+            transform.forward * moveInput.y;
+    }
+
+    float verticalVelocity = rb.linearVelocity.y;
+
+    if (player.isSubmerged)
+    {
+        verticalVelocity = movementDirection.y * swimSpd;
+    }
+
+    if (isAscending)
+    {
+        verticalVelocity = swimSpd;
+    }
+    else if (isDescending)
+    {
+        verticalVelocity = -swimSpd;
+    }
+
+    Vector3 normalMovementVelocity = new Vector3(
+        movementDirection.x * moveSPD,
+        verticalVelocity,
+        movementDirection.z * moveSPD
+    );
+
+    rb.linearVelocity = normalMovementVelocity + knockbackVelocity;
+
+    knockbackVelocity = Vector3.MoveTowards(
+        knockbackVelocity,
+        Vector3.zero,
+        knockbackDecay * Time.fixedDeltaTime
+    );
+}
 
     //Knockback
     public void ApplyKnockback(Vector3 direction, float strength)
@@ -396,5 +421,30 @@ knockbackVelocity = Vector3.MoveTowards(
         minGrabDistance,
         maxGrabDistance
     );
+}
+
+// DASH
+public void StartDash()
+{
+    if (isDashing)
+        return;
+
+    isDashing = true;
+
+    rb.linearVelocity = movementDirection.normalized * dashSpeed;
+
+    StartCoroutine(DashTimer());
+}
+
+private IEnumerator DashTimer()
+{
+    yield return new WaitForSeconds(dashDuration);
+
+    EndDash();
+}
+
+private void EndDash()
+ {
+    isDashing = false;
 }
 }
