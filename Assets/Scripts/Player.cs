@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int MaxHP = 100;
-    public int MinHP = 0;
+    public float MaxHP = 100;
+    public float MinHP = 0;
 
     public bool isSubmerged = false;
-    public int CurrentHP;
+    public float CurrentHP;
     public bool isPlayerHit = false;
     public bool isPlayerDead = false;
+    public bool isPlayerInvincible = false;
+    public float invincibilityDuration = 1f;
+    public bool isDashing = false;
 
     [SerializeField] private GameObject deathScreen;
 
@@ -45,18 +48,23 @@ public class Player : MonoBehaviour
     }
 
 
-    private void Death(int amount)
+  public void TakeDamage(int amount)
     {
         if (isPlayerDead) return;
 
         CurrentHP -= amount;
 
-        // Min hp cap
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Player Health: " + CurrentHP);
-    }
 
+        if(CurrentHP <= MinHP)
+        {
+            isPlayerDead = true;
+            Debug.Log("Player has died!");
+            Dead();
+        }
+    }
 
     private void Dead()
     {

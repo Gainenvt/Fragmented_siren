@@ -28,19 +28,18 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (isEnemyHit) return;
 
-        Enemy enemy = other.GetComponent<Enemy>();
+        Basesiren enemy = other.GetComponent<Basesiren>();
 
         if (enemy != null)
         {
             isEnemyHit = true;
 
-            enemy.CurrentHP -= DMG;
-
+            enemy.TakeDamage(DMG);      
             Debug.Log("Enemy hit! HP: " + enemy.CurrentHP);
 
             Destroy(gameObject);
         }
-
+    
         Debug.Log("Hit object: " + other.gameObject.name);
     }
 

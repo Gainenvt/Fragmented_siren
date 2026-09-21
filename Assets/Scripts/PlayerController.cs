@@ -1,24 +1,24 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
     private PlayerInputActions input;
     private Rigidbody rb;
     private Player player;
-
     private Vector2 moveInput;
     private Vector2 lookInput;
-
     private float xRotation = 0f;
-
     private bool isDescending;
     private bool isAscending;
+    private Vector3 movementDirection;
+    private bool isDashing;
+    
+    private Vector3 knockbackVelocity;
+    [SerializeField] private float knockbackDecay = 20f;
 
-
-
-    // GRAB SYSTEM
+    
 
     // GRAB SYSTEM
 
@@ -31,7 +31,8 @@ private float grabDistance;
 public float scrollSpeed = 2f;
 public float minGrabDistance = 1f;
 public float maxGrabDistance = 10f;
-[SerializeField] private float verticalOffset = 0f;
+private float dashSpeed = 10f;
+private float dashDuration = 0.4f;
 
    
     // MOVEMENT SETTINGS
@@ -57,7 +58,7 @@ public float maxGrabDistance = 10f;
     public GameObject projectilePrefab;
     public Transform spawnPoint;
 
-    // INITIALIZATION 
+     
 
     private void Awake()
     {
@@ -96,6 +97,9 @@ public float maxGrabDistance = 10f;
 
         input.Player.Grab.performed += OnGrab;
         input.Player.RotateGrabbed.performed += OnRotateGrabbed;
+
+        input.Player.Dash.performed += OnDash;
+        input.Player.Dash.canceled += OnDash;
     }
 
     private void OnDisable()
@@ -119,6 +123,9 @@ public float maxGrabDistance = 10f;
 
         input.Player.Grab.performed -= OnGrab;
         input.Player.RotateGrabbed.performed -= OnRotateGrabbed;
+        
+        input.Player.Dash.performed -= OnDash;
+        input.Player.Dash.canceled -= OnDash;
 
         input.Disable();
     }
@@ -137,6 +144,17 @@ public float maxGrabDistance = 10f;
     private void FixedUpdate()
     {
         Move();
+    }
+
+
+
+    // DASH INPUT
+    private void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StartDash();
+        }
     }
 
     // MOVEMENT INPUT
@@ -192,7 +210,7 @@ public float maxGrabDistance = 10f;
         }
     }
 
-    // SPEAR ATTACK
+    // SPEAR ATK
 
     private void OnSpearATK(InputAction.CallbackContext context)
     {
@@ -215,42 +233,37 @@ public float maxGrabDistance = 10f;
         rb.linearVelocity = spawnPoint.forward * 10f;
     }
 
-    // GRAB INPUT
+    // GRAB action
 
-    private void OnGrab(InputAction.CallbackContext context)
+   private void OnGrab(InputAction.CallbackContext context)
+{
+    if (selectedObject == null)
     {
-        if (selectedObject == null)
+        Camera camera = PlayerCamera.GetComponent<Camera>();
+
+        Ray ray = camera.ScreenPointToRay(
+            Mouse.current.position.ReadValue()
+        );
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Camera camera = PlayerCamera.GetComponent<Camera>();
-
-            Ray ray = camera.ScreenPointToRay(
-                Mouse.current.position.ReadValue()
-            );
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (!hit.collider.CompareTag("drag"))
             {
-                if (!hit.collider.CompareTag("drag"))
-                {
-                    return;
-                }
-
-                selectedObject = hit.collider.gameObject;
-
-            
-            grabDistance = Vector3.Distance(
-            camera.transform.position,
-            selectedObject.transform.position);
-
-                Cursor.visible = false;
+                return;
             }
-        }
-        else
-        {
-            selectedObject = null;
 
-            Cursor.visible = true;
+            selectedObject = hit.collider.gameObject;
+
+            grabDistance = hit.distance;
         }
     }
+    else
+    {
+        selectedObject = null;
+
+        Cursor.visible = true;
+    }
+}
 
     private void OnRotateGrabbed(InputAction.CallbackContext context)
     {
@@ -266,7 +279,7 @@ public float maxGrabDistance = 10f;
 
     // GRAB MOVEMENT
 
-   private void GrabObject()
+    private void GrabObject()
 {
     if (selectedObject == null)
     {
@@ -275,58 +288,78 @@ public float maxGrabDistance = 10f;
 
     Camera camera = PlayerCamera.GetComponent<Camera>();
 
-    // Mouse wheel adjusts its position above/below the camera's center.
-    verticalOffset += Mouse.current.scroll.ReadValue().y * scrollSpeed;
+    Vector2 mousePosition =
+        Mouse.current.position.ReadValue();
 
-    Vector3 heldPosition =
-        camera.transform.position +
-        camera.transform.forward * grabDistance +
-        camera.transform.up * verticalOffset;
+    Ray ray = camera.ScreenPointToRay(mousePosition);
 
-    selectedObject.transform.position = heldPosition;
+    Vector3 worldPosition =
+        ray.GetPoint(grabDistance);
+
+    selectedObject.transform.position = worldPosition;
 }
 
     // Move
 
-    private void Move()
+   private void Move()
+{
+    if (isDashing)
     {
-        Vector3 movement;
-
-        if (player.isSubmerged)
-        {
-            movement =
-                PlayerCamera.right * moveInput.x +
-                PlayerCamera.forward * moveInput.y;
-        }
-        else
-        {
-            movement =
-                transform.right * moveInput.x +
-                transform.forward * moveInput.y;
-        }
-
-        float verticalVelocity = rb.linearVelocity.y;
-
-        if (player.isSubmerged)
-        {
-            verticalVelocity = movement.y * moveSPD;
-        }
-
-        if (isAscending)
-        {
-            verticalVelocity = swimSpd;
-        }
-        else if (isDescending)
-        {
-            verticalVelocity = -swimSpd;
-        }
-
-        rb.linearVelocity = new Vector3(
-            movement.x * moveSPD,
-            verticalVelocity,
-            movement.z * moveSPD
-        );
+        return;
     }
+
+    if (player.isSubmerged)
+    {
+        movementDirection =
+            PlayerCamera.right * moveInput.x +
+            PlayerCamera.forward * moveInput.y;
+    }
+    else
+    {
+        movementDirection =
+            transform.right * moveInput.x +
+            transform.forward * moveInput.y;
+    }
+
+    float verticalVelocity = rb.linearVelocity.y;
+
+    if (player.isSubmerged)
+    {
+        verticalVelocity = movementDirection.y * swimSpd;
+    }
+
+    if (isAscending)
+    {
+        verticalVelocity = swimSpd;
+    }
+    else if (isDescending)
+    {
+        verticalVelocity = -swimSpd;
+    }
+
+    Vector3 normalMovementVelocity = new Vector3(
+        movementDirection.x * moveSPD,
+        verticalVelocity,
+        movementDirection.z * moveSPD
+    );
+
+    rb.linearVelocity = normalMovementVelocity + knockbackVelocity;
+
+    knockbackVelocity = Vector3.MoveTowards(
+        knockbackVelocity,
+        Vector3.zero,
+        knockbackDecay * Time.fixedDeltaTime
+    );
+}
+
+    //Knockback
+    public void ApplyKnockback(Vector3 direction, float strength)
+{
+    direction.y = 0f;
+    direction.Normalize();
+
+    knockbackVelocity = direction * strength;
+}
 
     // LOOK
 
@@ -379,7 +412,7 @@ public float maxGrabDistance = 10f;
         return;
     }
 
-    float scroll = Mouse.current.scroll.ReadValue().y;
+    float scroll = Mouse.current.scroll.ReadValue().x ;
 
     grabDistance -= scroll * scrollSpeed * Time.deltaTime;
 
@@ -388,5 +421,30 @@ public float maxGrabDistance = 10f;
         minGrabDistance,
         maxGrabDistance
     );
+}
+
+// DASH
+public void StartDash()
+{
+    if (isDashing)
+        return;
+
+    isDashing = true;
+
+    rb.linearVelocity = movementDirection.normalized * dashSpeed;
+
+    StartCoroutine(DashTimer());
+}
+
+private IEnumerator DashTimer()
+{
+    yield return new WaitForSeconds(dashDuration);
+
+    EndDash();
+}
+
+private void EndDash()
+ {
+    isDashing = false;
 }
 }

@@ -2,12 +2,11 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 
-public class HostileAi : MonoBehaviour
+public class MeleeHostileAi : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject projectilePrefab;
 
     [Header("Layers")]
     [SerializeField] private LayerMask Terrain;
@@ -22,15 +21,16 @@ public class HostileAi : MonoBehaviour
     [SerializeField] private float AttackCooldown = 1f;
     private bool isOnAttackCooldown;
 
-    [SerializeField] private float forwardShotForce = 10f;
-    [SerializeField] private float verticalShotForce = 5f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
-    [SerializeField] private float engagementRange = 10f;
+    [SerializeField] private float engagementRange = 1f;
 
     [Header("Move and Attack")]
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float meleeRadius = 1f;
+    [SerializeField] private int meleeDamage = 10;
+    [SerializeField] private float knockbackForce = 12f;
     private bool isPlayerVisible;
     private bool isPlayerInRange;
     private Rigidbody rb;
@@ -69,7 +69,7 @@ private void Update()
     }
     else
     {
-        GunhimDOWN();
+        SOCKHIM();
     }
 }
     
@@ -103,30 +103,41 @@ private void Update()
     }
 
 
-    private void FireProjectile()
+  private void MeleeATK()
 {
-    if (projectilePrefab == null || firePoint == null)
+    if (playerTransform == null)
         return;
 
-    Rigidbody projectileRb = Instantiate(
-        projectilePrefab,
-        firePoint.position,
-        firePoint.rotation
-    ).GetComponent<Rigidbody>();
+    Vector3 attackPosition = transform.position + transform.forward * 0.9f;
 
-    projectileRb.AddForce(
-        transform.forward * forwardShotForce,
-        ForceMode.Impulse
+    Collider[] hits = Physics.OverlapSphere(
+        attackPosition,
+        meleeRadius,
+        playerLayerMask
     );
 
-    projectileRb.AddForce(
-        transform.up * verticalShotForce,
-        ForceMode.Impulse
-    );
+    foreach (Collider hit in hits)
+    {
+        if (hit.TryGetComponent(out  Player playerCurrentHP))
+        {
+            playerCurrentHP.TakeDamage(meleeDamage);
+        }
 
-    Destroy(projectileRb.gameObject, 3f);
+        if (hit.TryGetComponent(out Rigidbody playerRb))
+        {
+           Vector3 knockbackDirection =
+        playerRb.position - transform.position;
+
+    knockbackDirection.y = 0f;
+    knockbackDirection.Normalize();
+
+    playerRb.AddForce(
+        knockbackDirection * knockbackForce,
+        ForceMode.VelocityChange);
+        }
+
+    }
 }
-
     private void FindPatrolPoint()
 {
     float randomX = Random.Range(-patrolRadius, patrolRadius);
@@ -177,7 +188,7 @@ private void Update()
     }
 }
     
-    private void GunhimDOWN()
+    private void SOCKHIM()
 {
     if (isPlayerInRange)
     {
@@ -190,7 +201,7 @@ private void Update()
 
         if (!isOnAttackCooldown)
         {
-            FireProjectile();
+            MeleeATK();
             StartCoroutine(AttackcooldownRoutine());
         }
     }
