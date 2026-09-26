@@ -412,15 +412,19 @@ private float dashDuration = 0.4f;
         return;
     }
 
-    float scroll = Mouse.current.scroll.ReadValue().x ;
+    float scroll = Mouse.current.scroll.ReadValue().y ;
 
-    grabDistance -= scroll * scrollSpeed * Time.deltaTime;
-
+    grabDistance -= scroll * scrollSpeed ;
     grabDistance = Mathf.Clamp(
         grabDistance,
         minGrabDistance,
         maxGrabDistance
     );
+
+    Vector3 targetPosition = PlayerCamera.position + PlayerCamera.forward * grabDistance;
+    selectedObject.transform.position = targetPosition;
+
+
 }
 
 // DASH
