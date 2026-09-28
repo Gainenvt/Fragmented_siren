@@ -1605,6 +1605,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5aa30390ba2634bbf4e425ce1b3785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CirclePuzzle
+  circlePuzzleObject: {fileID: 0}
+  sirenEnemy: {fileID: 0}
+  meleeEnemy: {fileID: 0}
 --- !u!1 &1292172259
 GameObject:
   m_ObjectHideFlags: 0
@@ -8046,6 +8049,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc5aa30390ba2634bbf4e425ce1b3785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CirclePuzzle
+  circlePuzzleObject: {fileID: 0}
+  sirenEnemy: {fileID: 0}
+  meleeEnemy: {fileID: 0}
 --- !u!1 &2020994023
 GameObject:
   m_ObjectHideFlags: 0
