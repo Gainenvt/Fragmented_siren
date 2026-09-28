@@ -36,8 +36,8 @@ public class Basesiren : MonoBehaviour
 
     private void Dead()
     {
-        Debug.Log("Enemy is dead!");
-
-        Destroy(gameObject);
+        isEnemyDead = true;
+        Debug.Log("Enemy is dead! Current HP: " + CurrentHP);
+        gameObject.SetActive(false);
     }
 }
