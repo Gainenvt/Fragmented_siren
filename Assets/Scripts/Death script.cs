@@ -13,5 +13,16 @@ public class Deathscript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    private void pause()
+    {
+        Time.timeScale = 0f;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pause();
+        }
+    }
 
 }
