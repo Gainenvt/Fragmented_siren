@@ -154,6 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectile
   DMG: 10
-  SPD: 10
-  lifetime: 5
+  SPD: 70
+  lifetime: 10
   isEnemyHit: 0
