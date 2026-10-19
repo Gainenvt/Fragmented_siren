@@ -67,7 +67,7 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Fragmented_siren.slnx",
+    "dotnet.defaultSolution": "Fragmented_siren-main.slnx",
     "csharp-dev-tools.solutionViewer.selectedWorkspaceSolutions": [
         "FragementedSerpaint.slnx",
         "Fragmented-Serpent.slnx"
