@@ -31,7 +31,7 @@ private float grabDistance;
 public float scrollSpeed = 2f;
 public float minGrabDistance = 1f;
 public float maxGrabDistance = 10f;
-private float dashSpeed = 10f;
+private float dashSpeed = 30f;
 private float dashDuration = 0.4f;
 
    
