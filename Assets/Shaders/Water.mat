@@ -83,6 +83,6 @@ Material:
     - _Wave_Speed_2: 0.6
     m_Colors:
     - _Color: {r: 0.04705883, g: 0.24705884, b: 0.32156864, a: 0.19607843}
-    - _RipplePoint: {r: 0.80477554, g: 0.30861926, b: 0, a: 0}
+    - _RipplePoint: {r: 0.75949377, g: 0.31741467, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
