@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isAscending;
     private Vector3 movementDirection;
     private bool isDashing;
-    
+    public int SPD = 50;
     private Vector3 knockbackVelocity;
     [SerializeField] private float knockbackDecay = 20f;
 
@@ -230,7 +230,7 @@ private float dashDuration = 0.4f;
     {
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-        rb.linearVelocity = PlayerCamera.forward * 10f;
+        rb.linearVelocity = projectile.transform.forward * SPD;
     }
 
     // GRAB action

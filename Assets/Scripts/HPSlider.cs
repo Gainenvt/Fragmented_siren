@@ -7,9 +7,8 @@ public class HPSlider : MonoBehaviour
      public Slider easeSlider;
      public float lerpSpeed = 5f;
 
-     public void Start()
+     public void Start() 
      {
-         player = GetComponentInParent<Player>();
          slider.value = player.CurrentHP;
          easeSlider.value = player.CurrentHP;
 
