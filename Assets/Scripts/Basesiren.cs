@@ -13,7 +13,6 @@ public class Basesiren : MonoBehaviour
 
     [Header("Damage Flash")]
     [SerializeField] private Color damageColor = Color.red;
-    [SerializeField] private float flashDuration = 0.15f;
 
     private readonly List<Material> enemyMaterials = new List<Material>();
     private readonly List<Color> originalColors = new List<Color>();
@@ -26,20 +25,28 @@ public class Basesiren : MonoBehaviour
         CurrentHP = MaxHP;
 
         Renderer[] renderers =
-            GetComponentsInChildren<Renderer>();
+            GetComponentsInChildren<Renderer>(true);
 
         foreach (Renderer rend in renderers)
         {
             
             foreach (Material mat in rend.materials)
-            {
-                string colorProperty = GetColorProperty(mat);
+    {
+        string colorProperty = GetColorProperty(mat);
 
-                if (colorProperty == null)
-                    continue;
+        Debug.Log(
+            gameObject.name +
+            " | Renderer: " + rend.name +
+            " | Material: " + mat.name +
+            " | Shader: " + mat.shader.name +
+            " | Color property: " + colorProperty
+        );
 
-                enemyMaterials.Add(mat);
-                originalColors.Add(mat.GetColor(colorProperty));
+        if (colorProperty == null)
+            continue;
+
+        enemyMaterials.Add(mat);
+        originalColors.Add(mat.GetColor(colorProperty));
             }
         }
 
@@ -80,30 +87,43 @@ public class Basesiren : MonoBehaviour
         }
     }
 
-    private IEnumerator FlashRed()
+   private IEnumerator FlashRed()
+{
+    Debug.Log("FLASH STARTED: " + gameObject.name);
+
+    SetEnemyColor(Color.magenta);
+
+    yield return new WaitForSeconds(2f);
+
+    RestoreOriginalColor();
+
+    Debug.Log("Enemy flash effect ended. Current HP: " + CurrentHP);
+
+    flashCoroutine = null;
+}
+   private void SetEnemyColor(Color color)
+{
+    Debug.Log(
+        gameObject.name +
+        " | Materials found: " + enemyMaterials.Count
+    );
+
+    for (int i = 0; i < enemyMaterials.Count; i++)
     {
-        SetEnemyColor(damageColor);
+        Material mat = enemyMaterials[i];
+        string property = GetColorProperty(mat);
 
-        yield return new WaitForSeconds(flashDuration);
-
-        RestoreOriginalColor();
-
-        flashCoroutine = null;
-    }
-
-    private void SetEnemyColor(Color color)
-    {
-        for (int i = 0; i < enemyMaterials.Count; i++)
+        if (property != null)
         {
-            Material mat = enemyMaterials[i];
-            string property = GetColorProperty(mat);
+            mat.SetColor(property, color);
 
-            if (property != null)
-            {
-                mat.SetColor(property, color);
-            }
+            Debug.Log(
+                "Changed material: " + mat.name +
+                " | Color: " + mat.GetColor(property)
+            );
         }
     }
+}
 
     private void RestoreOriginalColor()
     {

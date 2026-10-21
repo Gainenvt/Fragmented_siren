@@ -3,21 +3,41 @@ using UnityEngine;
 public class secondfloor : MonoBehaviour
 {
     [SerializeField] private GameObject Floor;
-    [SerializeField] private MeleeSiren[] BaseSiren;
+    [SerializeField] private string targetTag = "Melee_Enemy";
 
-     void Update()
+    private Basesiren[] meleeEnemies;
+
+    private void Start()
     {
-        destroyfloor();
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(targetTag);
+
+        meleeEnemies = new Basesiren[enemyObjects.Length];
+
+        for (int i = 0; i < enemyObjects.Length; i++)
+        {
+            meleeEnemies[i] = enemyObjects[i].GetComponent<Basesiren>();
+        }
     }
 
-       private void destroyfloor()
+    private void Update()
     {
-        for (int i = 0; i < BaseSiren.Length; i++)
+        DestroyFloor();
+    }
+
+    private void DestroyFloor()
+    {
+        // Don't destroy the floor if no enemies were found.
+        if (meleeEnemies == null || meleeEnemies.Length == 0)
+            return;
+
+        foreach (Basesiren enemy in meleeEnemies)
         {
-            if (!BaseSiren[i].isEnemyDead)
-            {
+            // An enemy without the script should not count as defeated.
+            if (enemy == null)
                 return;
-            }
+
+            if (!enemy.isEnemyDead)
+                return;
         }
 
         Destroy(gameObject);

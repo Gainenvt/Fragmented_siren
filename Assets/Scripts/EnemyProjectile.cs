@@ -26,6 +26,7 @@ public class EnemyProjectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log("Destroyed");
     }
     private bool isPlayerHit = false;
     private void OnTriggerEnter(Collider other)

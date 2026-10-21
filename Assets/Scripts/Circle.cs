@@ -3,8 +3,7 @@ using UnityEngine;
 public class CirclePuzzle : MonoBehaviour
 {
     [SerializeField] private GameObject circlePuzzleObject;
-    [SerializeField] private Basesiren sirenEnemy;
-    [SerializeField] private MeleeSiren meleeEnemy;
+        [SerializeField] private Basesiren sirenEnemy;
     [SerializeField] private GameObject drag;
 
     private void Start()
@@ -25,7 +24,7 @@ public class CirclePuzzle : MonoBehaviour
 
     private void ShowCirclePuzzle()
     {
-        if (sirenEnemy.isEnemyDead && meleeEnemy.isEnemyDead)
+            if (sirenEnemy.isEnemyDead)
         {
             circlePuzzleObject.SetActive(true);
             drag.SetActive(true);

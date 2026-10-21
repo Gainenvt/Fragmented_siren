@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerProjectile : MonoBehaviour
 {
     public int DMG = 10;
-    public int SPD = 200;
     public float lifetime = 5f;
     public bool isEnemyHit = false;
     public ParticleSystem particleSystem;
@@ -29,8 +28,7 @@ public class PlayerProjectile : MonoBehaviour
     {
         if (isEnemyHit) return;
 
-        Basesiren enemy = other.GetComponent<Basesiren>();
-
+Basesiren enemy = other.GetComponentInParent<Basesiren>();        
         if (enemy != null)
         {
             isEnemyHit = true;

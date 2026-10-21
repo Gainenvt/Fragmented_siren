@@ -15,7 +15,7 @@ public class Deathscript : MonoBehaviour
 
     private void pause()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 0f;       
     }
     private void Update()
     {

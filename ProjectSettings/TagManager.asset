@@ -11,6 +11,8 @@ TagManager:
   - slider
   - CirclePuzzle
   - UI
+  - Melee_enemy
+  - Melee_Enemy
   layers:
   - Default
   - TransparentFX

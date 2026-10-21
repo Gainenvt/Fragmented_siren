@@ -23,7 +23,6 @@ public class HostileAi : MonoBehaviour
     private bool isOnAttackCooldown;
 
     [SerializeField] private float forwardShotForce = 10f;
-    [SerializeField] private float verticalShotForce = 5f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -103,29 +102,36 @@ private void Update()
     }
 
 
-    private void FireProjectile()
+
+private void FireProjectile()
 {
-    if (projectilePrefab == null || firePoint == null)
+    if (projectilePrefab == null || firePoint == null || playerTransform == null)
         return;
 
-    Rigidbody projectileRb = Instantiate(
+    // Calculate the direction from the FirePoint to the player
+    Vector3 direction = (playerTransform.position - firePoint.position).normalized;
+
+    // Spawn the projectile facing the player
+    GameObject projectile = Instantiate(
         projectilePrefab,
         firePoint.position,
-        firePoint.rotation
-    ).GetComponent<Rigidbody>();
-
-    projectileRb.AddForce(
-        transform.forward * forwardShotForce,
-        ForceMode.Impulse
+        Quaternion.LookRotation(direction)
     );
 
-    projectileRb.AddForce(
-        transform.up * verticalShotForce,
-        ForceMode.Impulse
-    );
+    // Apply force in the direction the projectile is facing
+    Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
 
-    Destroy(projectileRb.gameObject, 3f);
+    if (projectileRb != null)
+    {
+        projectileRb.AddForce(
+            direction * forwardShotForce,
+            ForceMode.Impulse
+        );
+    }
+
+    Destroy(projectile, 3f);
 }
+
 
     private void FindPatrolPoint()
 {
@@ -169,6 +175,7 @@ private void Update()
    private void FetchHIM()
 {
     if (playerTransform != null)
+    Debug.Log("Player Transform: " + playerTransform.name);
     {
         Vector3 direction =
             (playerTransform.position - transform.position).normalized;
