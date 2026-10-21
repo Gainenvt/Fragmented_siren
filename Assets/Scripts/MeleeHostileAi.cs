@@ -7,6 +7,7 @@ public class MeleeHostileAi : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Animator animator;
 
     [Header("Layers")]
     [SerializeField] private LayerMask Terrain;
@@ -45,6 +46,8 @@ public class MeleeHostileAi : MonoBehaviour
         {
             playerTransform = playerObj.transform;
         }
+        if (animator == null)
+    animator = GetComponent<Animator>();
     }
 
   
@@ -160,50 +163,75 @@ private void Update()
         isOnAttackCooldown = false;
     }
 
-   private void FindPatrolPath()
+  private void FindPatrolPath()
 {
-    if (!hasPatrolPoint)
-    {
-        FindPatrolPoint();
-    }
+    if (rb == null)
+        return;
 
-    Vector3 direction = (currentPatrolPoint - transform.position).normalized;
+    if (!hasPatrolPoint)
+        FindPatrolPoint();
+
+    Vector3 direction =
+        (currentPatrolPoint - transform.position).normalized;
 
     rb.linearVelocity = direction * moveSpeed;
+
+    SetSwimming(true);
+
+    if (direction.sqrMagnitude > 0.001f)
+        transform.rotation = Quaternion.LookRotation(direction);
 
     if (Vector3.Distance(transform.position, currentPatrolPoint) < 1f)
     {
         hasPatrolPoint = false;
         rb.linearVelocity = Vector3.zero;
+        SetSwimming(false);
     }
 }
-   private void FetchHIM()
+  private void FetchHIM()
 {
-    if (playerTransform != null)
-    {
-        Vector3 direction =
-            (playerTransform.position - transform.position).normalized;
+    if (playerTransform == null || rb == null)
+        return;
 
-        rb.linearVelocity = direction * moveSpeed;
-    }
+    Vector3 direction =
+        (playerTransform.position - transform.position).normalized;
+
+    rb.linearVelocity = direction * moveSpeed;
+
+    SetSwimming(true);
+    FacePlayer();
+}
+private void FacePlayer()
+{
+    if (playerTransform == null)
+        return;
+
+    Vector3 direction =
+        playerTransform.position - transform.position;
+
+    if (direction.sqrMagnitude > 0.001f)
+        transform.rotation = Quaternion.LookRotation(direction);
+}
+
+private void SetSwimming(bool swimming)
+{
+    if (animator != null)
+        animator.SetBool("IsSwiming", swimming);
 }
     
-    private void SOCKHIM()
+   private void SOCKHIM()
 {
-    if (isPlayerInRange)
+    if (!isPlayerInRange || rb == null)
+        return;
+
+    rb.linearVelocity = Vector3.zero;
+    SetSwimming(false);
+    FacePlayer();
+
+    if (!isOnAttackCooldown)
     {
-        rb.linearVelocity = Vector3.zero;
-
-        if (playerTransform != null)
-        {
-            transform.LookAt(playerTransform);
-        }
-
-        if (!isOnAttackCooldown)
-        {
-            MeleeATK();
-            StartCoroutine(AttackcooldownRoutine());
-        }
+        MeleeATK();
+        StartCoroutine(AttackcooldownRoutine());
     }
 }
 

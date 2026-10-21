@@ -8,7 +8,7 @@ public class HostileAi : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject projectilePrefab;
-
+    [SerializeField] private Animator animator;
     [Header("Layers")]
     [SerializeField] private LayerMask Terrain;
     [SerializeField] private LayerMask playerLayerMask;
@@ -17,6 +17,7 @@ public class HostileAi : MonoBehaviour
     [SerializeField] private float patrolRadius = 10f;
     private Vector3 currentPatrolPoint;
     private bool hasPatrolPoint;
+private bool isSwimming;
 
     [Header("Combat Settings")]
     [SerializeField] private float AttackCooldown = 1f;
@@ -41,12 +42,11 @@ public class HostileAi : MonoBehaviour
         GameObject playerObj = GameObject.Find("Player");
 
         if (playerObj != null)
-        {
             playerTransform = playerObj.transform;
-        }
     }
 
-  
+    if (animator == null)
+        animator = GetComponentInChildren<Animator>();
 
     rb = GetComponent<Rigidbody>();
 }
@@ -70,6 +70,12 @@ private void Update()
     {
         GunhimDOWN();
     }
+}
+
+private void SetSwimming(bool swimming)
+{
+    if (animator != null)
+        animator.SetBool("IsSwiming", swimming);
 }
     
 
@@ -155,51 +161,69 @@ private void FireProjectile()
         isOnAttackCooldown = false;
     }
 
-   private void FindPatrolPath()
+  private void FindPatrolPath()
 {
-    if (!hasPatrolPoint)
-    {
-        FindPatrolPoint();
-    }
+    if (rb == null)
+        return;
 
-    Vector3 direction = (currentPatrolPoint - transform.position).normalized;
+    if (!hasPatrolPoint)
+        FindPatrolPoint();
+
+    Vector3 direction =
+        (currentPatrolPoint - transform.position).normalized;
 
     rb.linearVelocity = direction * moveSpeed;
+
+    SetSwimming(true);
+
+    if (direction.sqrMagnitude > 0.001f)
+        transform.rotation = Quaternion.LookRotation(direction);
 
     if (Vector3.Distance(transform.position, currentPatrolPoint) < 1f)
     {
         hasPatrolPoint = false;
         rb.linearVelocity = Vector3.zero;
+        SetSwimming(false);
     }
-}
-   private void FetchHIM()
+}   private void FetchHIM()
 {
-    if (playerTransform != null)
-    Debug.Log("Player Transform: " + playerTransform.name);
-    {
-        Vector3 direction =
-            (playerTransform.position - transform.position).normalized;
+    if (playerTransform == null || rb == null)
+        return;
 
-        rb.linearVelocity = direction * moveSpeed;
-    }
+    Vector3 direction =
+        (playerTransform.position - transform.position).normalized;
+
+    rb.linearVelocity = direction * moveSpeed;
+
+    SetSwimming(true);
+    FacePlayer();
+    
+}
+private void FacePlayer()
+{
+    if (playerTransform == null)
+        return;
+
+    Vector3 direction =
+        playerTransform.position - transform.position;
+
+    if (direction.sqrMagnitude > 0.001f)
+        transform.rotation = Quaternion.LookRotation(direction);
 }
     
     private void GunhimDOWN()
 {
-    if (isPlayerInRange)
+    if (!isPlayerInRange || rb == null)
+        return;
+
+    rb.linearVelocity = Vector3.zero;
+    SetSwimming(false);
+    FacePlayer();
+
+    if (!isOnAttackCooldown)
     {
-        rb.linearVelocity = Vector3.zero;
-
-        if (playerTransform != null)
-        {
-            transform.LookAt(playerTransform);
-        }
-
-        if (!isOnAttackCooldown)
-        {
-            FireProjectile();
-            StartCoroutine(AttackcooldownRoutine());
-        }
+        FireProjectile();
+        StartCoroutine(AttackcooldownRoutine());
     }
 }
 
