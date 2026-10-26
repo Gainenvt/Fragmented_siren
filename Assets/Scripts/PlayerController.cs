@@ -100,6 +100,7 @@ private float dashDuration = 0.4f;
 
         input.Player.Dash.performed += OnDash;
         input.Player.Dash.canceled += OnDash;
+
     }
 
     private void OnDisable()
@@ -127,6 +128,7 @@ private float dashDuration = 0.4f;
         input.Player.Dash.performed -= OnDash;
         input.Player.Dash.canceled -= OnDash;
 
+
         input.Disable();
     }
 
@@ -145,7 +147,6 @@ private float dashDuration = 0.4f;
     {
         Move();
     }
-
 
 
     // DASH INPUT
@@ -298,6 +299,7 @@ private float dashDuration = 0.4f;
 
     selectedObject.transform.position = worldPosition;
 }
+
 
     // Move
 
