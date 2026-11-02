@@ -34,6 +34,7 @@ public class HostileAi : MonoBehaviour
     private bool isPlayerVisible;
     private bool isPlayerInRange;
     private Rigidbody rb;
+    private EnemyAnimation enemyAnimation;
 
    private void Awake()
 {
@@ -47,7 +48,7 @@ public class HostileAi : MonoBehaviour
         }
     }
 
-  
+    enemyAnimation = GetComponent<EnemyAnimation>();
 
     rb = GetComponent<Rigidbody>();
 }
@@ -142,7 +143,7 @@ private void Update()
     hasPatrolPoint = true;
 }
 
-    private IEnumerator AttackcooldownRoutine()
+      private IEnumerator AttackcooldownRoutine()
     {
         isOnAttackCooldown = true;
         yield return new WaitForSeconds(AttackCooldown);
@@ -165,6 +166,11 @@ private void Update()
         hasPatrolPoint = false;
         rb.linearVelocity = Vector3.zero;
     }
+   
+enemyAnimation.animator.SetBool("isIdle", true);
+enemyAnimation.animator.SetBool("isSwimming", false);
+enemyAnimation.animator.SetBool("isAttacking", false);
+
 }
    private void FetchHIM()
 {
@@ -175,6 +181,9 @@ private void Update()
 
         rb.linearVelocity = direction * moveSpeed;
     }
+    enemyAnimation.animator.SetBool("isSwimming", true);
+    enemyAnimation.animator.SetBool("isAttacking", false);
+    enemyAnimation.animator.SetBool("isIdle", false);
 }
     
     private void GunhimDOWN()
@@ -182,6 +191,10 @@ private void Update()
     if (isPlayerInRange)
     {
         rb.linearVelocity = Vector3.zero;
+
+        enemyAnimation.animator.SetBool("isAttacking", true);
+        enemyAnimation.animator.SetBool("isSwimming", false);
+        enemyAnimation.animator.SetBool("isIdle", false);
 
         if (playerTransform != null)
         {
@@ -194,7 +207,8 @@ private void Update()
             StartCoroutine(AttackcooldownRoutine());
         }
     }
+    
 }
 
 
-}
+} 
