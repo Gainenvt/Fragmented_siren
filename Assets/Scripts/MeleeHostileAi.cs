@@ -7,15 +7,18 @@ public class MeleeHostileAi : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Transform firePoint;
-
+    public Animator Animator;
     [Header("Layers")]
     [SerializeField] private LayerMask Terrain;
     [SerializeField] private LayerMask playerLayerMask;
+    private EnemyAnimation enemyAnimation;
 
     [Header("Patrol Settings")]
     [SerializeField] private float patrolRadius = 10f;
     private Vector3 currentPatrolPoint;
     private bool hasPatrolPoint;
+    public bool isSwimming;
+    public bool isAttacking;
 
     [Header("Combat Settings")]
     [SerializeField] private float AttackCooldown = 1f;
@@ -47,9 +50,12 @@ public class MeleeHostileAi : MonoBehaviour
         }
     }
 
+
   
 
     rb = GetComponent<Rigidbody>();
+    enemyAnimation = GetComponent<EnemyAnimation>();
+
 }
 
 private void Update()
@@ -162,6 +168,7 @@ private void Update()
 
    private void FindPatrolPath()
 {
+    
     if (!hasPatrolPoint)
     {
         FindPatrolPoint();
@@ -176,22 +183,31 @@ private void Update()
         hasPatrolPoint = false;
         rb.linearVelocity = Vector3.zero;
     }
+    Debug.Log("isEnemyPatrolling: " + !isPlayerVisible);
 }
    private void FetchHIM()
 {
     if (playerTransform != null)
     {
+         isSwimming  = true;
+        isAttacking = false;
+         
         Vector3 direction =
             (playerTransform.position - transform.position).normalized;
 
         rb.linearVelocity = direction * moveSpeed;
     }
+    enemyAnimation.animator.SetBool("isSwimming", true);
+    enemyAnimation.animator.SetBool("isAttacking", false);
 }
     
     private void SOCKHIM()
 {
     if (isPlayerInRange)
     {
+
+        isSwimming = false;
+        isAttacking = true;
         rb.linearVelocity = Vector3.zero;
 
         if (playerTransform != null)
@@ -205,6 +221,8 @@ private void Update()
             StartCoroutine(AttackcooldownRoutine());
         }
     }
+    enemyAnimation.animator.SetBool("isAttacking", true);
+    enemyAnimation.animator.SetBool("isSwimming", false);
 }
 
 

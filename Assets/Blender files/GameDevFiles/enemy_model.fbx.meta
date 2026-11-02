@@ -1,0 +1,341 @@
+fileFormatVersion: 2
+guid: 312d888ac50c2e448a917d057b50fc48
+ModelImporter:
+  serializedVersion: 24501
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+    searchTexturesGlobally: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 1
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 1
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature| Idle Animation
+      takeName: Armature| Idle Animation
+      internalID: -421549819137869537
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature| Idle Animation (1)
+      takeName: Armature| Idle Animation
+      internalID: 4723146814002874508
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Walk/Swim cycle
+      takeName: Armature|Walk/Swim cycle
+      internalID: 5196527749518588018
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    importUVs: -1
+    importVertexColors: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+    calculateBlendshapeNormalsDeltaFromImportedNormals: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: enemy_model(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: enemy_model(Clone)
+      position: {x: -2.7277467, y: -1.30339, z: 0.10711211}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Middle tail
+      parentName: Armature
+      position: {x: 0.027819077, y: -0.00166004, z: 0.039326925}
+      rotation: {x: 0.69099796, y: -1.4414165e-17, z: 1.6840203e-17, w: 0.72285676}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: 'fish tail bone '
+      parentName: Middle tail
+      position: {x: -0.0000000023841857, y: 0.0050606155, z: 1.4901161e-10}
+      rotation: {x: 0.07448478, y: -2.5522015e-18, z: -1.634084e-17, w: 0.9972222}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine
+      parentName: 'fish tail bone '
+      position: {x: -0.0000000023841857, y: 0.0050606155, z: 2.9802322e-10}
+      rotation: {x: -0.058719907, y: -0.00006596222, z: -0.0056048064, w: 0.99825877}
+      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+    - name: ChestBone
+      parentName: Spine
+      position: {x: -0.0000000011532393, y: 0.004703968, z: 3.5273842e-10}
+      rotation: {x: -0.10208785, y: -0.0005038814, z: 0.010531257, w: 0.9947195}
+      scale: {x: 1, y: 0.9999999, z: 1}
+    - name: collar R
+      parentName: ChestBone
+      position: {x: -5.523907e-10, y: 0.0049426453, z: 3.8417054e-11}
+      rotation: {x: 0.14483976, y: 0.12286571, z: -0.62652284, w: 0.7559065}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Upper Shoulder R
+      parentName: collar R
+      position: {x: 0.0000000081676985, y: 0.001807368, z: -1.6763806e-10}
+      rotation: {x: -0.5351789, y: 0.2932677, z: 0.020407086, w: 0.79193515}
+      scale: {x: 1, y: 0.99999976, z: 0.9999999}
+    - name: Shoulder R
+      parentName: Upper Shoulder R
+      position: {x: -0.000000004428439, y: 0.0013991927, z: 0}
+      rotation: {x: 0.7326082, y: -0.21862352, z: -0.13323653, w: 0.63066393}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000001}
+    - name: Middle SectionForearm R
+      parentName: Shoulder R
+      position: {x: -0.0000000060535967, y: 0.0030953854, z: -0.0000000010058283}
+      rotation: {x: -0.17734183, y: 0.009679316, z: 0.09630182, w: 0.9793785}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: End of Forearm L.001
+      parentName: Middle SectionForearm R
+      position: {x: 0.000000007804483, y: 0.0028282062, z: 0.0000000017136335}
+      rotation: {x: -0.011846914, y: 0.001185647, z: -0.027146874, w: 0.9995606}
+      scale: {x: 1, y: 1, z: 1}
+    - name: 'wrist R '
+      parentName: End of Forearm L.001
+      position: {x: -0.0000000041909516, y: 0.002486955, z: 0.0000000014156103}
+      rotation: {x: 0.025926221, y: 0.00000041464293, z: -0.010123045, w: 0.9996126}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Hand IK R
+      parentName: End of Forearm L.001
+      position: {x: -0.0000000041909516, y: 0.002486955, z: 0.0000000014156103}
+      rotation: {x: 0.025926242, y: 0.000000373955, z: -0.01012271, w: 0.9996126}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: neck
+      parentName: ChestBone
+      position: {x: -5.523907e-10, y: 0.0049426453, z: 3.8417054e-11}
+      rotation: {x: 0.13038458, y: -0.025465846, z: -0.015762236, w: 0.9910111}
+      scale: {x: 0.99999994, y: 1.0000002, z: 0.99999994}
+    - name: collar L
+      parentName: ChestBone
+      position: {x: 0.000007795639, y: 0.0049425596, z: -0.000000012475065}
+      rotation: {x: 0.123515666, y: -0.10351867, z: 0.62256825, w: 0.76579154}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: upper Shoulder L
+      parentName: collar L
+      position: {x: 0.0000000013643875, y: 0.0018073651, z: -6.1583705e-10}
+      rotation: {x: -0.537569, y: -0.29324844, z: -0.019343797, w: 0.79034853}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Shoulder L
+      parentName: upper Shoulder L
+      position: {x: -0.000000003958121, y: 0.0013991903, z: -3.72529e-10}
+      rotation: {x: 0.7326082, y: 0.2186235, z: 0.13323656, w: 0.63066393}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999998}
+    - name: Middle SectionForearm L
+      parentName: Shoulder L
+      position: {x: 0.000000007152557, y: 0.0030953845, z: -0.0000000025704503}
+      rotation: {x: -0.17724344, y: -0.009669448, z: -0.09638359, w: 0.9793883}
+      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+    - name: End of Forearm L
+      parentName: Middle SectionForearm L
+      position: {x: 0.0000000034458933, y: 0.0028282076, z: -2.9802322e-10}
+      rotation: {x: -0.011846909, y: -0.0011856507, z: 0.027146872, w: 0.9995606}
+      scale: {x: 1, y: 0.9999998, z: 0.99999994}
+    - name: wrist L
+      parentName: End of Forearm L
+      position: {x: -0.000000009071082, y: 0.0024869556, z: -0.0000000010430813}
+      rotation: {x: 0.025926147, y: -0.00000041640627, z: 0.010123024, w: 0.9996126}
+      scale: {x: 1, y: 1.0000001, z: 0.9999999}
+    - name: Hand IK L
+      parentName: End of Forearm L
+      position: {x: -0.000000009071082, y: 0.0024869556, z: -0.0000000010430813}
+      rotation: {x: 0.025926175, y: -0.00000037570456, z: 0.010122689, w: 0.9996126}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: beging tail bone
+      parentName: 'fish tail bone '
+      position: {x: -0.0000000023841857, y: 0.0050606155, z: 2.9802322e-10}
+      rotation: {x: -0.49383533, y: 0.040320784, z: -0.18999939, w: 0.8475855}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: tail bone
+      parentName: beging tail bone
+      position: {x: -5.401671e-10, y: 0.0016353242, z: -0.000000001527369}
+      rotation: {x: -0.1736122, y: 0.037154984, z: 0.2625503, w: 0.94844383}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Bone.007
+      parentName: tail bone
+      position: {x: -0.0000000012107193, y: 0.0016090801, z: -0.0000000037439167}
+      rotation: {x: -0.30562866, y: 0.21173947, z: -0.33928433, w: 0.86408544}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Tail bone
+      parentName: Bone.007
+      position: {x: -0.0000000031292438, y: 0.0012984037, z: 0.000000007674098}
+      rotation: {x: -0.09795827, y: 0.08708622, z: -0.0718619, w: 0.98876494}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: Lowwer Tail Bone
+      parentName: Armature
+      position: {x: 0.027819077, y: -0.00166004, z: 0.039326925}
+      rotation: {x: -0.38868448, y: -0.586272, z: 0.39532173, w: 0.5907032}
+      scale: {x: 0.9999998, y: 0.99999976, z: 0.99999976}
+    - name: End Tail Bone
+      parentName: Lowwer Tail Bone
+      position: {x: 0.0000000014059697, y: 0.010600004, z: -0.0000000019767321}
+      rotation: {x: -0.006781583, y: -0.0006460988, z: -0.14583497, w: 0.98928547}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Siren(enemy)
+      parentName: enemy_model(Clone)
+      position: {x: 0.04873061, y: 4.2786655, z: 0.3250778}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: Siren(enemy)
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
