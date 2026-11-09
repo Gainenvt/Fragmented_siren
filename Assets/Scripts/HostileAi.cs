@@ -23,7 +23,6 @@ public class HostileAi : MonoBehaviour
     private bool isOnAttackCooldown;
 
     [SerializeField] private float forwardShotForce = 10f;
-    [SerializeField] private float verticalShotForce = 5f;
 
     [Header("Detection Ranges")]
     [SerializeField] private float visionRange = 20f;
@@ -115,19 +114,19 @@ private void Update()
         firePoint.rotation
     ).GetComponent<Rigidbody>();
 
-    projectileRb.AddForce(
-        transform.forward * forwardShotForce,
-        ForceMode.Impulse
-    );
+    if (projectileRb == null)
+        return;
+
+    Vector3 direction =
+        (playerTransform.position - firePoint.position).normalized;
 
     projectileRb.AddForce(
-        transform.up * verticalShotForce,
+        direction * forwardShotForce,
         ForceMode.Impulse
     );
 
     Destroy(projectileRb.gameObject, 3f);
 }
-
     private void FindPatrolPoint()
 {
     float randomX = Random.Range(-patrolRadius, patrolRadius);
@@ -198,7 +197,13 @@ enemyAnimation.animator.SetBool("isAttacking", false);
 
         if (playerTransform != null)
         {
-            transform.LookAt(playerTransform);
+            Vector3 direction = playerTransform.position - transform.position;
+            direction.y = 0f; // Keep the enemy upright
+
+             if (direction.sqrMagnitude > 0.001f)
+    {
+        transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+    }
         }
 
         if (!isOnAttackCooldown)
