@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public bool isPlayerInvincible = false;
     public float invincibilityDuration = 1f;
     public bool isDashing = false;
+    [SerializeField] private GameObject playerGameObject;
 
     [SerializeField] private GameObject deathScreen;
 
@@ -75,5 +76,6 @@ public class Player : MonoBehaviour
         UnlockCursor();
 
         deathScreen.SetActive(true);
+        playerGameObject.SetActive(false);
     }
 }
