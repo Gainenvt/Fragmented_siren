@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject playerGameObject;
 
     [SerializeField] private GameObject deathScreen;
-
+    [SerializeField] private HitEffect hitEffect;
 
     void Start()
     {
@@ -58,6 +58,8 @@ public class Player : MonoBehaviour
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Player Health: " + CurrentHP);
+
+        hitEffect.ShowHitEffect();
 
         if(CurrentHP <= MinHP)
         {
