@@ -1106,8 +1106,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300620b4ea67a7445bbc6fab6c9744c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Floorscripts
-  Floor: {fileID: 0}
-  sirenEnemy: []
+  sirenEnemy:
+  - {fileID: 481962635}
+  - {fileID: 1187253864}
+  - {fileID: 597176112}
+  - {fileID: 337076006}
+  playerCamera: {fileID: 39438291}
+  floorCameraTarget: {fileID: 501834639}
+  cameraPanDuration: 2
+  floor: {fileID: 182199408}
+  shrinkDuration: 2
+--- !u!4 &182199408 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3703188355686192897, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+  m_PrefabInstance: {fileID: 773190229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &192096648 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3118815481316055224, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
@@ -1152,12 +1165,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300620b4ea67a7445bbc6fab6c9744c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Floorscripts
-  Floor: {fileID: 193476209}
   sirenEnemy:
   - {fileID: 481962635}
   - {fileID: 1187253864}
   - {fileID: 337076006}
   - {fileID: 597176112}
+  playerCamera: {fileID: 39438291}
+  floorCameraTarget: {fileID: 501834639}
+  cameraPanDuration: 2
+  floor: {fileID: 193476218}
+  shrinkDuration: 2
 --- !u!64 &193476217
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1180,6 +1197,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4008250670446792841, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+--- !u!4 &193476218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2284734464662868888, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+  m_PrefabInstance: {fileID: 773190229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &229411622
 GameObject:
   m_ObjectHideFlags: 0
@@ -7856,6 +7878,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkinnedMeshBoundsFitter
   padding: 1.15
+--- !u!1 &501834638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 501834639}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &501834639
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501834638}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 86.9, y: 88.74032, z: 27.65904}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &557371555 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1854427760236391327, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
@@ -24825,7 +24878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.09411765}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -43605,12 +43658,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300620b4ea67a7445bbc6fab6c9744c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Floorscripts
-  Floor: {fileID: 193476209}
   sirenEnemy:
   - {fileID: 481962635}
   - {fileID: 1187253864}
   - {fileID: 337076006}
   - {fileID: 597176112}
+  playerCamera: {fileID: 39438291}
+  floorCameraTarget: {fileID: 501834639}
+  cameraPanDuration: 2
+  floor: {fileID: 1625794188}
+  shrinkDuration: 2
 --- !u!64 &1625794187
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -43633,6 +43690,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 218487073552083915, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+--- !u!4 &1625794188 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4811837030778848074, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+  m_PrefabInstance: {fileID: 773190229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1631161156
 GameObject:
   m_ObjectHideFlags: 0
@@ -56465,6 +56527,8 @@ Terrain:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 954701006}
+  - {fileID: 501834639}
   - {fileID: 664701306}
   - {fileID: 832575519}
   - {fileID: 11715471}
@@ -56476,7 +56540,6 @@ SceneRoots:
   - {fileID: 1292021622}
   - {fileID: 1442816245}
   - {fileID: 1788734450}
-  - {fileID: 1374577616}
   - {fileID: 985959285}
   - {fileID: 876002303}
   - {fileID: 1262249431}
@@ -56491,4 +56554,4 @@ SceneRoots:
   - {fileID: 1873008704}
   - {fileID: 490691019}
   - {fileID: 1051671661}
-  - {fileID: 954701006}
+  - {fileID: 1374577616}
