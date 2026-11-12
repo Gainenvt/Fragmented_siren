@@ -18,7 +18,7 @@ public class HitEffect : MonoBehaviour
 
     public void ShowHitEffect()
     {
-        Debug.Log("DAMAGE VIGNETTE ACTIVATED!");
+        Debug.Log("DAMAGE EFFECT ACTIVATED!");
 
         if (hitCoroutine != null)
         {

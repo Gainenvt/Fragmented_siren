@@ -49,22 +49,32 @@ public class Player : MonoBehaviour
     }
 
 
-  public void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
+        Debug.Log("TAKE DAMAGE FUNCTION ENTERED!");
+
         if (isPlayerDead) return;
 
         CurrentHP -= amount;
-
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Player Health: " + CurrentHP);
 
+        Debug.Log("Attempting to activate hit effect...");
+
+        if (hitEffect == null)
+        {
+            Debug.LogError("HIT EFFECT REFERENCE IS NULL!");
+            return;
+        }
+
         hitEffect.ShowHitEffect();
 
-        if(CurrentHP <= MinHP)
+        Debug.Log("Hit effect method returned!");
+
+        if (CurrentHP <= MinHP)
         {
             isPlayerDead = true;
-            Debug.Log("Player has died!");
             Dead();
         }
     }

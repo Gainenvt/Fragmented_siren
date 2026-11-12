@@ -8,7 +8,7 @@ public class HPSlider : MonoBehaviour
     public Player player;
     public Slider easeSlider;
     public float lerpSpeed = 5f;
-
+    [SerializeField] private HitEffect hitEffect;
     void Start()
     {
         // Only search for Player if one wasn't assigned
