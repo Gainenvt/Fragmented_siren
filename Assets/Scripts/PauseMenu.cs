@@ -15,7 +15,9 @@ public class PauseMenu : MonoBehaviour
     {
         pauseAction = new InputAction(
             type: InputActionType.Button,
-            binding: "<Keyboard>/escape"
+            binding: "<Keyboard>/escape",
+            interactions: "Press"
+
         );
 
         pauseAction.performed += OnPausePressed;
@@ -49,6 +51,7 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPausePressed(InputAction.CallbackContext context)
     {
+        Debug.Log("escape pressed?");
         if (isPaused)
         {
             ResumeGame();

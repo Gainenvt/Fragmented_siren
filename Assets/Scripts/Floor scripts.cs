@@ -14,7 +14,6 @@ public class Floorscripts : MonoBehaviour
 
     [Header("Floor Animation")]
     [SerializeField] private Transform floor;
-    [SerializeField] private float shrinkDuration = 2f;
 
     private bool sequenceStarted = false;
 
@@ -78,26 +77,35 @@ public class Floorscripts : MonoBehaviour
         // 2. Shrink the floor.
         Vector3 originalScale = floor.localScale;
 
+        // 3. Return camera to player.
+        // 3. Return camera to player.
+        Vector3 returnStartPosition = playerCamera.position;
+        Quaternion returnStartRotation = playerCamera.rotation;
+
         timer = 0f;
 
-        while (timer < shrinkDuration)
+        while (timer < cameraPanDuration)
         {
             timer += Time.deltaTime;
 
-            float t = Mathf.Clamp01(timer / shrinkDuration);
-
+            float t = Mathf.Clamp01(timer / cameraPanDuration);
             t = Mathf.SmoothStep(0f, 1f, t);
 
-            floor.localScale = Vector3.Lerp(
-                originalScale,
-                Vector3.zero,
+            playerCamera.position = Vector3.Lerp(
+                returnStartPosition,
+                startPosition,
+                t
+            );
+
+            playerCamera.rotation = Quaternion.Slerp(
+                returnStartRotation,
+                startRotation,
                 t
             );
 
             yield return null;
         }
 
-        // 3. Destroy the floor.
         Destroy(gameObject);
     }
 }

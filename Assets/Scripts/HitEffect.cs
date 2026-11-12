@@ -8,7 +8,7 @@ public class HitEffect : MonoBehaviour
     public Image hitImage;
     public float fadeSpeed = 2f;
     public float maxAlpha = 0.6f;
-
+  
     private Coroutine hitCoroutine;
 
     void Start()
@@ -18,7 +18,6 @@ public class HitEffect : MonoBehaviour
 
     public void ShowHitEffect()
     {
-        Debug.Log("DAMAGE EFFECT ACTIVATED!");
 
         if (hitCoroutine != null)
         {

@@ -230,7 +230,7 @@ private float dashDuration = 0.4f;
     {
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-        rb.linearVelocity = PlayerCamera.forward * 10f;
+        rb.linearVelocity = PlayerCamera.forward * 30f;
     }
 
     // GRAB action
