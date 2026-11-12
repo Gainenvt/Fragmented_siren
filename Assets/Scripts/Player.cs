@@ -12,9 +12,10 @@ public class Player : MonoBehaviour
     public bool isPlayerInvincible = false;
     public float invincibilityDuration = 1f;
     public bool isDashing = false;
+    [SerializeField] private GameObject playerGameObject;
 
     [SerializeField] private GameObject deathScreen;
-
+    [SerializeField] private HitEffect hitEffect;
 
     void Start()
     {
@@ -48,20 +49,32 @@ public class Player : MonoBehaviour
     }
 
 
-  public void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
+        Debug.Log("TAKE DAMAGE FUNCTION ENTERED!");
+
         if (isPlayerDead) return;
 
         CurrentHP -= amount;
-
         CurrentHP = Mathf.Max(CurrentHP, MinHP);
 
         Debug.Log("Player Health: " + CurrentHP);
 
-        if(CurrentHP <= MinHP)
+        Debug.Log("Attempting to activate hit effect...");
+
+        if (hitEffect == null)
+        {
+            Debug.LogError("HIT EFFECT REFERENCE IS NULL!");
+            return;
+        }
+
+        hitEffect.ShowHitEffect();
+
+        Debug.Log("Hit effect method returned!");
+
+        if (CurrentHP <= MinHP)
         {
             isPlayerDead = true;
-            Debug.Log("Player has died!");
             Dead();
         }
     }
@@ -75,5 +88,6 @@ public class Player : MonoBehaviour
         UnlockCursor();
 
         deathScreen.SetActive(true);
+        playerGameObject.SetActive(false);
     }
 }

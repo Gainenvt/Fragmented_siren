@@ -20,6 +20,7 @@ public class Basesiren : MonoBehaviour
     private Coroutine flashCoroutine;
 
     public bool isEnemyDead = false;
+    public GameObject BasesirenPrefab;
 
     private void Start()
     {
@@ -144,6 +145,6 @@ public class Basesiren : MonoBehaviour
 
         Debug.Log("Enemy is dead! Current HP: " + CurrentHP);
 
-        gameObject.SetActive(false);
+        BasesirenPrefab.SetActive(false);
     }
 }

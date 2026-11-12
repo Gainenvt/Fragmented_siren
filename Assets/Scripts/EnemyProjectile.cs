@@ -8,7 +8,6 @@ public class EnemyProjectile : MonoBehaviour
     public float moveSpeed = 10f;
     public int damage = 10;
     public float lifetime = 5f;
-    public Player player;
 
     private Rigidbody rb;
     private void Awake()
@@ -29,23 +28,20 @@ public class EnemyProjectile : MonoBehaviour
     }
     private bool isPlayerHit = false;
     private void OnTriggerEnter(Collider other)
-{
-    if (isPlayerHit) return;
-
-    Player player = other.GetComponent<Player>();
-    Rigidbody rb = other.GetComponent<Rigidbody>();
-
-    if (player != null)
     {
-        isPlayerHit = true;
+        if (isPlayerHit) return;
 
-        player.CurrentHP -= damage;
+        Player player = other.GetComponent<Player>();
 
-        Debug.Log("Player hit! HP: " + player.CurrentHP);
+        if (player != null)
+        {
+            isPlayerHit = true;
+
+            player.TakeDamage(damage);
+
+            Destroy(gameObject);
+        }
     }
 
-    Debug.Log("Hit object " + other.gameObject.name);
 }
-
-    }
 
