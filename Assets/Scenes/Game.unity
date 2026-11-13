@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 11482455}
   - component: {fileID: 11482454}
   m_Layer: 0
-  m_Name: Terrain_(-2000.00, 0.00, -1000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 181948508}
   - component: {fileID: 181948507}
   m_Layer: 0
-  m_Name: Terrain_(2000.00, 0.00, -2000.00)
+  m_Name: Rocky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1788,7 +1788,7 @@ GameObject:
   - component: {fileID: 328450325}
   - component: {fileID: 328450324}
   m_Layer: 0
-  m_Name: Terrain_(2000.00, 0.00, 0.00)
+  m_Name: Rocky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2325,7 +2325,7 @@ GameObject:
   - component: {fileID: 403759838}
   - component: {fileID: 403759837}
   m_Layer: 0
-  m_Name: Terrain_(-2000.00, 0.00, 0.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2716,7 +2716,7 @@ GameObject:
   - component: {fileID: 453461529}
   - component: {fileID: 453461528}
   m_Layer: 0
-  m_Name: Terrain_(-1000.00, 0.00, -2000.00)
+  m_Name: Rocky reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4847,7 +4847,7 @@ GameObject:
   - component: {fileID: 719915820}
   - component: {fileID: 719915819}
   m_Layer: 0
-  m_Name: Terrain_(0.00, 0.00, -2000.00)
+  m_Name: Rocky Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5770,7 +5770,7 @@ GameObject:
   - component: {fileID: 793296660}
   - component: {fileID: 793296659}
   m_Layer: 0
-  m_Name: Terrain_(-1000.00, 0.00, 1000.00)
+  m_Name: Rocky reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6002,7 +6002,7 @@ GameObject:
   - component: {fileID: 847582885}
   - component: {fileID: 847582884}
   m_Layer: 0
-  m_Name: Terrain_(-1000.00, 0.00, -1000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15749,12 +15749,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876647225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -933, y: -164, z: -1822}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1218.4907, y: -54.454674, z: -2732.8057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1621532156}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &886940211
 GameObject:
@@ -20585,12 +20585,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886940211}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1218, y: -46, z: 944}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -1503.4907, y: 63.545326, z: 33.194458}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1621532156}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &894123963
 GameObject:
@@ -20757,7 +20757,7 @@ GameObject:
   - component: {fileID: 896545129}
   - component: {fileID: 896545128}
   m_Layer: 0
-  m_Name: Terrain_(1000.00, 0.00, -2000.00)
+  m_Name: Rocky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22159,7 +22159,7 @@ GameObject:
   - component: {fileID: 1122282118}
   - component: {fileID: 1122282117}
   m_Layer: 0
-  m_Name: Sea Floor
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22390,7 +22390,7 @@ GameObject:
   - component: {fileID: 1156546310}
   - component: {fileID: 1156546309}
   m_Layer: 0
-  m_Name: Terrain_(-2000.00, 0.00, 1000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27899,12 +27899,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226507326}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2318, y: 95, z: 1234}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 2032.5093, y: 204.54532, z: 323.19446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1621532156}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1237533438 stripped
 GameObject:
@@ -33005,12 +33005,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262249428}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 785.7612, y: 882, z: 297}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 500.27057, y: 991.54535, z: -613.80554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1621532156}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1269794468 stripped
 GameObject:
@@ -33371,7 +33371,7 @@ GameObject:
   - component: {fileID: 1293572501}
   - component: {fileID: 1293572500}
   m_Layer: 0
-  m_Name: Terrain_(-1000.00, 0.00, 0.00)
+  m_Name: Rocky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34077,7 +34077,7 @@ GameObject:
   - component: {fileID: 1393921720}
   - component: {fileID: 1393921719}
   m_Layer: 0
-  m_Name: Terrain_(-2000.00, 0.00, -2000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39995,12 +39995,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1544958941}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2318, y: -164, z: -1145}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 2032.5093, y: -54.454674, z: -2055.8057}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1621532156}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1565303721 stripped
 GameObject:
@@ -40282,6 +40282,42 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7737318009292284590, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
+--- !u!1 &1621532155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1621532156}
+  m_Layer: 0
+  m_Name: School of Fish
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1621532156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1621532155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 285.49066, y: -109.54533, z: 910.80554}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1262249431}
+  - {fileID: 886940214}
+  - {fileID: 1226507329}
+  - {fileID: 1544958944}
+  - {fileID: 876647228}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1625794179 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2151791787034107151, guid: d4391dd9367f07f4ba4c64d389242af8, type: 3}
@@ -45881,7 +45917,7 @@ GameObject:
   - component: {fileID: 1715308563}
   - component: {fileID: 1715308562}
   m_Layer: 0
-  m_Name: Terrain_(1000.00, 0.00, 1000.00)
+  m_Name: Rocky Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45975,7 +46011,7 @@ GameObject:
   - component: {fileID: 1719682087}
   - component: {fileID: 1719682086}
   m_Layer: 0
-  m_Name: Terrain_(1000.00, 0.00, -1000.00)
+  m_Name: Volcanic region
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47162,7 +47198,7 @@ GameObject:
   - component: {fileID: 1908190105}
   - component: {fileID: 1908190104}
   m_Layer: 0
-  m_Name: Terrain_(0.00, 0.00, 1000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47870,7 +47906,7 @@ GameObject:
   - component: {fileID: 2017198977}
   - component: {fileID: 2017198976}
   m_Layer: 0
-  m_Name: Terrain_(1000.00, 0.00, 0.00)
+  m_Name: Very rocky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48040,7 +48076,7 @@ GameObject:
   - component: {fileID: 2043237449}
   - component: {fileID: 2043237448}
   m_Layer: 0
-  m_Name: Terrain_(2000.00, 0.00, -1000.00)
+  m_Name: Volcan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48134,7 +48170,7 @@ GameObject:
   - component: {fileID: 2043985638}
   - component: {fileID: 2043985637}
   m_Layer: 0
-  m_Name: Terrain_(2000.00, 0.00, 1000.00)
+  m_Name: Rocky Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48449,7 +48485,7 @@ GameObject:
   - component: {fileID: 2083155539}
   - component: {fileID: 2083155538}
   m_Layer: 0
-  m_Name: Terrain_(0.00, 0.00, -1000.00)
+  m_Name: Reef
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48551,11 +48587,6 @@ SceneRoots:
   - {fileID: 1788734450}
   - {fileID: 985959285}
   - {fileID: 876002303}
-  - {fileID: 1262249431}
-  - {fileID: 886940214}
-  - {fileID: 1226507329}
-  - {fileID: 1544958944}
-  - {fileID: 876647228}
   - {fileID: 773190229}
   - {fileID: 1051671661}
   - {fileID: 1374577616}
@@ -48565,3 +48596,4 @@ SceneRoots:
   - {fileID: 89622974}
   - {fileID: 1664807875}
   - {fileID: 2056171652}
+  - {fileID: 1621532156}
