@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8445014301982921820}
   - component: {fileID: 7943932229669356171}
   - component: {fileID: 923220281881727819}
+  - component: {fileID: 2816643588227114368}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -157,3 +158,16 @@ MonoBehaviour:
   SPD: 2147483647
   lifetime: 10
   isEnemyHit: 0
+--- !u!114 &2816643588227114368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8601181016468447197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7ef08e068f88bf4d8b7a2d9bc456bef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPrompt
+  displayName: Player Orb

@@ -33,10 +33,13 @@ public float minGrabDistance = 1f;
 public float maxGrabDistance = 10f;
 private float dashSpeed = 30f;
 private float dashDuration = 0.4f;
+[SerializeField] private CityKey cityKey;
 
-   
+
+
+
     // MOVEMENT SETTINGS
-    
+
 
     public float JumpForce = 2f;
     public float moveSPD = 3f;
@@ -235,35 +238,45 @@ private float dashDuration = 0.4f;
 
     // GRAB action
 
-   private void OnGrab(InputAction.CallbackContext context)
-{
-    if (selectedObject == null)
+
+    private void OnGrab(InputAction.CallbackContext context)
     {
-        Camera camera = PlayerCamera.GetComponent<Camera>();
-
-        Ray ray = camera.ScreenPointToRay(
-            Mouse.current.position.ReadValue()
-        );
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (selectedObject == null)
         {
-            if (!hit.collider.CompareTag("drag"))
+            Camera camera = PlayerCamera.GetComponent<Camera>();
+
+            Ray ray = camera.ScreenPointToRay(
+                Mouse.current.position.ReadValue()
+            );
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                return;
+                if (!hit.collider.CompareTag("drag"))
+                {
+                    return;
+                }
+
+                selectedObject = hit.collider.gameObject;
+
+                grabDistance = hit.distance;
+
+                // Check whether the grabbed object is the City Key.
+                CityKey cityKey = hit.collider.GetComponentInParent<CityKey>();
+
+                if (cityKey != null)
+                {
+                    cityKey.ActivateCityKey();
+                }
             }
+        }
+        else
+        {
+            selectedObject = null;
 
-            selectedObject = hit.collider.gameObject;
-
-            grabDistance = hit.distance;
+            Cursor.visible = true;
         }
     }
-    else
-    {
-        selectedObject = null;
 
-        Cursor.visible = true;
-    }
-}
 
     private void OnRotateGrabbed(InputAction.CallbackContext context)
     {
