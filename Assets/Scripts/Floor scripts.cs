@@ -39,28 +39,32 @@ public class Floorscripts : MonoBehaviour
         StartCoroutine(FloorDestructionSequence());
     }
 
+
     IEnumerator FloorDestructionSequence()
     {
-        // Stop the player camera controller.
+        // 1. Stop player camera movement
         if (cameraController != null)
         {
             cameraController.enabled = false;
         }
 
-        // Save original player camera position.
+        // 2. Save the camera's original position
         Vector3 startPosition = playerCamera.position;
         Quaternion startRotation = playerCamera.rotation;
 
-        // 1. Move camera to floor camera.
+        // Also save its position relative to the Player.
+        Vector3 originalLocalPosition = playerCamera.localPosition;
+        Quaternion originalLocalRotation = playerCamera.localRotation;
+
+        // 3. Move camera to the floor camera
         yield return StartCoroutine(MoveCamera(
             startPosition,
             startRotation,
             floorCamera.position,
             floorCamera.rotation
-           
         ));
 
-        // 2. Return camera to player.
+        // 4. Return camera to its original world position
         yield return StartCoroutine(MoveCamera(
             floorCamera.position,
             floorCamera.rotation,
@@ -68,15 +72,22 @@ public class Floorscripts : MonoBehaviour
             startRotation
         ));
 
-        // Restore player camera control.
+        // 5. Restore the original local position and rotation
+        playerCamera.localPosition = originalLocalPosition;
+        playerCamera.localRotation = originalLocalRotation;
+
+        // 6. Give camera control back to the player
         if (cameraController != null)
         {
             cameraController.enabled = true;
         }
 
+        // 7. Destroy the floor
         Destroy(gameObject);
+
         Debug.Log("Floor destroyed and camera returned to player.");
     }
+
 
     IEnumerator MoveCamera(
         Vector3 startPosition,

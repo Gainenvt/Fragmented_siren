@@ -10,13 +10,17 @@ public class QuestTrigger : MonoBehaviour
 
     [Header("Enemies")]
     [SerializeField] private Basesiren[] sirens;
+
+    [Header("Dialogue")]
     [SerializeField] private Dialog dialogue;
+    [SerializeField] private Dialog.DialogueSequence dialogueSequence;
 
     private bool questStarted = false;
+    private bool questCompleted = false;
 
     private void StartQuest()
     {
-        if (questStarted) return;
+        if (questStarted || questCompleted) return;
 
         Debug.Log("Player entered quest trigger!");
 
@@ -24,12 +28,9 @@ public class QuestTrigger : MonoBehaviour
 
         questPopup.SetActive(true);
 
-        Debug.Log("Quest Popup Active: " + questPopup.activeSelf);
-        Debug.Log("Quest Popup Visible in Hierarchy: " + questPopup.activeInHierarchy);
-        dialogue.PlayDialogue(Dialog.DialogueSequence.CityKey);
+        dialogue.PlayDialogue(dialogueSequence);
 
         UpdateQuestProgress();
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,17 +41,9 @@ public class QuestTrigger : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.root.CompareTag("Player"))
-        {
-            StartQuest();
-        }
-    }
-
     private void Update()
     {
-        if (questStarted && questPopup.activeSelf)
+        if (questStarted && !questCompleted)
         {
             UpdateQuestProgress();
         }
@@ -78,14 +71,10 @@ public class QuestTrigger : MonoBehaviour
 
         if (defeated >= sirens.Length)
         {
+            questCompleted = true;
             questPopup.SetActive(false);
+
+            Debug.Log("Quest completed!");
         }
-
     }
-
-
-
 }
-
-
-   

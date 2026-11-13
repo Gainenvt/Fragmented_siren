@@ -24,12 +24,15 @@ public class Dialog : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float displayDuration = 3f;
     [SerializeField] private float fadeDuration = 1.5f;
+    [TextArea(2, 5)]
+    [SerializeField] private string[] floorTwoEntryLines;
 
     private Coroutine dialogueCoroutine;
 
     public enum DialogueSequence
     {
         TowerEntry,
+        FloorTwoEntry,
         PuzzleComplete,
         CityKey,
         Ending
