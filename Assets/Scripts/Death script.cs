@@ -16,6 +16,10 @@ public class Deathscript : MonoBehaviour
     private void pause()
     {
         Time.timeScale = 0f;
+        GetComponent<PlayerMovement>().enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
     }
     private void Update()
     {

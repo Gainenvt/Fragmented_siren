@@ -40,12 +40,8 @@ public class PlayerProjectile : MonoBehaviour
             Destroy(gameObject);
         }
     
-        Debug.Log("Hit object: " + other.gameObject.name);
     }
 
-    private void explode()
-    {
-        // Implement explosion logic here
-    }
+    
 
 }
