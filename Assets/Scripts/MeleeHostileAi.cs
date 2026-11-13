@@ -229,25 +229,31 @@ public class MeleeHostileAi : MonoBehaviour
 
 
 
-private void FetchHIM()
-{
-    if (playerTransform == null)
-        return;
 
-    UpdateAnimations(true, false);
+    private void FetchHIM()
+    {
+        if (playerTransform == null)
+            return;
 
-    // Calculate an offset relative to the player's rotation.
-    Vector3 targetPosition =
-        playerTransform.TransformPoint(playerOffset);
+        UpdateAnimations(true, false);
 
-    Vector3 direction = targetPosition - transform.position;
+        // Calculate the desired position relative to the player.
+        Vector3 targetPosition =
+            playerTransform.TransformPoint(playerOffset);
 
-    direction.Normalize();
+        // Keep the enemy's actual height unchanged.
+        targetPosition.y = transform.position.y;
 
-    rb.linearVelocity = direction * moveSpeed;
+        Vector3 direction = targetPosition - transform.position;
 
-    LookAtMovementDirection(direction);
-}
+        direction.Normalize();
+
+        // Move horizontally while preserving vertical physics.
+        MoveHorizontally(direction);
+
+        LookAtMovementDirection(direction);
+    }
+
 
     // =========================
     // MELEE ATTACK

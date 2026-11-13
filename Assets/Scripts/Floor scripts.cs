@@ -9,12 +9,11 @@ public class Floorscripts : MonoBehaviour
 
     [Header("Camera")]
     [SerializeField] private Transform playerCamera;
-    [SerializeField] private Transform floorCameraTarget;
+    [SerializeField] private Transform floorCamera;
     [SerializeField] private float cameraPanDuration = 2f;
 
-    [Header("Floor Animation")]
-    [SerializeField] private Transform floor;
-    [SerializeField] private float shrinkDuration = 2f;
+    [Header("Camera Control")]
+    [SerializeField] private MonoBehaviour cameraController;
 
     private bool sequenceStarted = false;
 
@@ -42,13 +41,47 @@ public class Floorscripts : MonoBehaviour
 
     IEnumerator FloorDestructionSequence()
     {
-        // 1. Pan camera towards floor.
+        // Stop the player camera controller.
+        if (cameraController != null)
+        {
+            cameraController.enabled = false;
+        }
+
+        // Save original player camera position.
         Vector3 startPosition = playerCamera.position;
         Quaternion startRotation = playerCamera.rotation;
 
-        Vector3 targetPosition = floorCameraTarget.position;
-        Quaternion targetRotation = floorCameraTarget.rotation;
+        // 1. Move camera to floor camera.
+        yield return StartCoroutine(MoveCamera(
+            startPosition,
+            startRotation,
+            floorCamera.position,
+            floorCamera.rotation
+        ));
 
+        // 2. Return camera to player.
+        yield return StartCoroutine(MoveCamera(
+            floorCamera.position,
+            floorCamera.rotation,
+            startPosition,
+            startRotation
+        ));
+
+        // Restore player camera control.
+        if (cameraController != null)
+        {
+            cameraController.enabled = true;
+        }
+
+        Destroy(gameObject);
+    }
+
+    IEnumerator MoveCamera(
+        Vector3 startPosition,
+        Quaternion startRotation,
+        Vector3 targetPosition,
+        Quaternion targetRotation)
+    {
         float timer = 0f;
 
         while (timer < cameraPanDuration)
@@ -56,8 +89,6 @@ public class Floorscripts : MonoBehaviour
             timer += Time.deltaTime;
 
             float t = Mathf.Clamp01(timer / cameraPanDuration);
-
-            // Smooth camera movement.
             t = Mathf.SmoothStep(0f, 1f, t);
 
             playerCamera.position = Vector3.Lerp(
@@ -75,29 +106,7 @@ public class Floorscripts : MonoBehaviour
             yield return null;
         }
 
-        // 2. Shrink the floor.
-        Vector3 originalScale = floor.localScale;
-
-        timer = 0f;
-
-        while (timer < shrinkDuration)
-        {
-            timer += Time.deltaTime;
-
-            float t = Mathf.Clamp01(timer / shrinkDuration);
-
-            t = Mathf.SmoothStep(0f, 1f, t);
-
-            floor.localScale = Vector3.Lerp(
-                originalScale,
-                Vector3.zero,
-                t
-            );
-
-            yield return null;
-        }
-
-        // 3. Destroy the floor.
-        Destroy(gameObject);
+        playerCamera.position = targetPosition;
+        playerCamera.rotation = targetRotation;
     }
 }

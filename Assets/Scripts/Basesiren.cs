@@ -59,6 +59,7 @@ public class Basesiren : MonoBehaviour
         Debug.Log("Enemy Health: " + CurrentHP);
 
         PlayDamageEffect();
+        Debug.Log("damage effect played");
 
         if (flashCoroutine != null)
         {
@@ -77,7 +78,14 @@ public class Basesiren : MonoBehaviour
     {
         if (damageParticle != null)
         {
-            damageParticle.Play();
+            ParticleSystem effect = Instantiate(
+                damageParticle,
+                transform.position,
+                Quaternion.identity
+            );
+
+            effect.Play();
+            Destroy(effect.gameObject, 3f);
         }
     }
 
