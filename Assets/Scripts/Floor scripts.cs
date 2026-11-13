@@ -57,6 +57,7 @@ public class Floorscripts : MonoBehaviour
             startRotation,
             floorCamera.position,
             floorCamera.rotation
+           
         ));
 
         // 2. Return camera to player.
@@ -74,6 +75,7 @@ public class Floorscripts : MonoBehaviour
         }
 
         Destroy(gameObject);
+        Debug.Log("Floor destroyed and camera returned to player.");
     }
 
     IEnumerator MoveCamera(

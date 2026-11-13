@@ -99,7 +99,6 @@ private float dashDuration = 0.4f;
         input.Player.SpearATK.performed += OnSpearATK;
 
         input.Player.Grab.performed += OnGrab;
-        input.Player.RotateGrabbed.performed += OnRotateGrabbed;
 
         input.Player.Dash.performed += OnDash;
         input.Player.Dash.canceled += OnDash;
@@ -125,7 +124,6 @@ private float dashDuration = 0.4f;
         input.Player.SpearATK.performed -= OnSpearATK;
 
         input.Player.Grab.performed -= OnGrab;
-        input.Player.RotateGrabbed.performed -= OnRotateGrabbed;
         
         input.Player.Dash.performed -= OnDash;
         input.Player.Dash.canceled -= OnDash;
@@ -239,6 +237,7 @@ private float dashDuration = 0.4f;
     // GRAB action
 
 
+
     private void OnGrab(InputAction.CallbackContext context)
     {
         if (selectedObject == null)
@@ -251,18 +250,26 @@ private float dashDuration = 0.4f;
 
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (!hit.collider.CompareTag("drag"))
+                // Check whether this object is the City Key.
+                CityKey cityKey = hit.collider.GetComponentInParent<CityKey>();
+
+                // Check whether the collider or City Key is draggable.
+                bool canDrag = hit.collider.CompareTag("drag") ||
+                               (cityKey != null && cityKey.CompareTag("drag"));
+
+                if (!canDrag)
                 {
                     return;
                 }
 
-                selectedObject = hit.collider.gameObject;
+                // Select the root City Key, or the normal object.
+                selectedObject = cityKey != null
+                    ? cityKey.gameObject
+                    : hit.collider.gameObject;
 
                 grabDistance = hit.distance;
 
-                // Check whether the grabbed object is the City Key.
-                CityKey cityKey = hit.collider.GetComponentInParent<CityKey>();
-
+                // Activate the City Key when grabbed.
                 if (cityKey != null)
                 {
                     cityKey.ActivateCityKey();
@@ -277,18 +284,6 @@ private float dashDuration = 0.4f;
         }
     }
 
-
-    private void OnRotateGrabbed(InputAction.CallbackContext context)
-    {
-        if (selectedObject != null)
-        {
-            selectedObject.transform.Rotate(
-                0f,
-                90f,
-                0f
-            );
-        }
-    }
 
     // GRAB MOVEMENT
 

@@ -10,25 +10,41 @@ public class QuestTrigger : MonoBehaviour
 
     [Header("Enemies")]
     [SerializeField] private Basesiren[] sirens;
+    [SerializeField] private Dialog dialogue;
 
     private bool questStarted = false;
 
-    private void Start()
+    private void StartQuest()
     {
-        questPopup.SetActive(false);
+        if (questStarted) return;
+
+        Debug.Log("Player entered quest trigger!");
+
+        questStarted = true;
+
+        questPopup.SetActive(true);
+
+        Debug.Log("Quest Popup Active: " + questPopup.activeSelf);
+        Debug.Log("Quest Popup Visible in Hierarchy: " + questPopup.activeInHierarchy);
+        dialogue.PlayDialogue(Dialog.DialogueSequence.CityKey);
+
+        UpdateQuestProgress();
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-    
-
-        if (other.CompareTag("Player"))
+        if (other.transform.root.CompareTag("Player"))
         {
-            Debug.Log("Player entered quest trigger!");
+            StartQuest();
+        }
+    }
 
-            questStarted = true;
-            questPopup.SetActive(true);
-            UpdateQuestProgress();
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.root.CompareTag("Player"))
+        {
+            StartQuest();
         }
     }
 
@@ -42,6 +58,12 @@ public class QuestTrigger : MonoBehaviour
 
     private void UpdateQuestProgress()
     {
+        if (sirens == null || sirens.Length == 0)
+        {
+            Debug.LogWarning("No enemies assigned to QuestTrigger!");
+            return;
+        }
+
         int defeated = 0;
 
         foreach (Basesiren siren in sirens)
@@ -58,19 +80,12 @@ public class QuestTrigger : MonoBehaviour
         {
             questPopup.SetActive(false);
         }
+
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.root.CompareTag("Player") && !questStarted)
-        {
-            Debug.Log("PLAYER DETECTED INSIDE QUEST TRIGGER!");
-
-            questStarted = true;
-            questPopup.SetActive(true);
-            UpdateQuestProgress();
-        }
-    }
 
 
 }
+
+
+   

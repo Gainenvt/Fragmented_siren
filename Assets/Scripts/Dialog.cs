@@ -8,35 +8,83 @@ public class Dialog : MonoBehaviour
     [Header("References")]
     [SerializeField] private TMP_Text dialogText;
 
-    [Header("Dialogue")]
+    [Header("Dialogue Sequences")]
     [TextArea(2, 5)]
-    [SerializeField] private string[] dialogueLines;
+    [SerializeField] private string[] towerEntryLines;
+
+    [TextArea(2, 5)]
+    [SerializeField] private string[] puzzleCompleteLines;
+
+    [TextArea(2, 5)]
+    [SerializeField] private string[] cityKeyLines;
+
+    [TextArea(2, 5)]
+    [SerializeField] private string[] endingLines;
 
     [Header("Timing")]
     [SerializeField] private float displayDuration = 3f;
     [SerializeField] private float fadeDuration = 1.5f;
 
+    private Coroutine dialogueCoroutine;
+
+    public enum DialogueSequence
+    {
+        TowerEntry,
+        PuzzleComplete,
+        CityKey,
+        Ending
+    }
+
     private void Start()
     {
         dialogText.gameObject.SetActive(true);
-
-        StartCoroutine(PlayDialogue());
     }
 
-    private IEnumerator PlayDialogue()
+    public void PlayDialogue(DialogueSequence sequence)
     {
-        foreach (string line in dialogueLines)
-        {
-            // Display the current dialogue.
-            dialogText.text = line;
+        Debug.Log("1. PlayDialogue was called!");
+        Debug.Log("4. Dialogue coroutine started!");
 
-            // Make text fully visible.
+        dialogText.enabled = true;
+
+        Debug.Log("5. TMP enabled: " + dialogText.enabled);
+
+        string[] lines = sequence switch
+        {
+            DialogueSequence.TowerEntry => towerEntryLines,
+            DialogueSequence.PuzzleComplete => puzzleCompleteLines,
+            DialogueSequence.CityKey => cityKeyLines,
+            DialogueSequence.Ending => endingLines,
+            _ => null
+        };
+
+        Debug.Log("2. Sequence selected: " + sequence);
+
+        if (lines == null || lines.Length == 0)
+        {
+            Debug.LogError("3. NO DIALOGUE LINES FOUND!");
+            return;
+        }
+
+        Debug.Log("3. Found " + lines.Length + " dialogue lines!");
+
+        if (dialogueCoroutine != null)
+            StopCoroutine(dialogueCoroutine);
+
+        dialogueCoroutine = StartCoroutine(PlayDialogueRoutine(lines));
+    }
+
+    private IEnumerator PlayDialogueRoutine(string[] lines)
+    {
+        dialogText.gameObject.SetActive(true);
+
+        foreach (string line in lines)
+        {
+            dialogText.text = line;
             SetAlpha(1f);
 
-            // Wait before disappearing.
             yield return new WaitForSeconds(displayDuration);
 
-            // Fade out.
             float elapsedTime = 0f;
 
             while (elapsedTime < fadeDuration)
@@ -57,8 +105,8 @@ public class Dialog : MonoBehaviour
             SetAlpha(0f);
         }
 
-        // Hide text when all dialogue is finished.
-        dialogText.gameObject.SetActive(false);
+        dialogText.gameObject.SetActive(true);
+        dialogueCoroutine = null;
     }
 
     private void SetAlpha(float alpha)

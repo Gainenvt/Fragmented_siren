@@ -1,32 +1,50 @@
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 public class Deathscript : MonoBehaviour
-{       [SerializeField] private string GameSceneMainMenu;
+{
+    [Header("Scene Settings")]
+    [SerializeField] private string GameSceneMainMenu = "MainMenu";
+
+    [Header("Player References")]
+    [SerializeField] private PlayerMovement playerMovement;
+
+    private bool isPaused;
+
+    private void Awake()
+    {
+        if (playerMovement == null)
+        {
+            playerMovement = GetComponent<PlayerMovement>();
+        }
+    }
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(GameSceneMainMenu);
     }
 
     public void Retry()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void pause()
+    public void Pause()
     {
+        if (isPaused) return;
+
+        isPaused = true;
         Time.timeScale = 0f;
-        GetComponent<PlayerMovement>().enabled = false;
+
+        if (playerMovement != null)
+        {
+            playerMovement.enabled = false;
+        }
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pause();
-        }
-    }
-
 }
