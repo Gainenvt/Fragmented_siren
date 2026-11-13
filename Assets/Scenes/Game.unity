@@ -22080,6 +22080,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPrompt
   displayName: Orb
+  canIdentify: 1
+  canInteract: 1
+  onInteract:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &959650766
 GameObject:
   m_ObjectHideFlags: 0

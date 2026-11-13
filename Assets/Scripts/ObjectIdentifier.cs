@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class ObjectIdentifier : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ObjectIdentifier : MonoBehaviour
     [Header("Detection")]
     [SerializeField] private float detectionRange = 5f;
 
+    private ObjectPrompt currentPrompt;
+
     private void Update()
     {
         Ray ray = new Ray(
@@ -18,15 +21,34 @@ public class ObjectIdentifier : MonoBehaviour
             playerCamera.transform.forward
         );
 
+        currentPrompt = null;
+
         if (Physics.Raycast(ray, out RaycastHit hit, detectionRange))
         {
             ObjectPrompt prompt =
                 hit.collider.GetComponentInParent<ObjectPrompt>();
 
-            if (prompt != null)
+            if (prompt != null && prompt.CanIdentify)
             {
+                currentPrompt = prompt;
+
                 objectText.text = prompt.DisplayName;
+
+                if (prompt.CanInteract)
+                {
+                    objectText.text += "\n[E] Interact";
+                }
+
                 objectText.gameObject.SetActive(true);
+
+                // New Input System
+                if (prompt.CanInteract &&
+                    Keyboard.current != null &&
+                    Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    prompt.Interact();
+                }
+
                 return;
             }
         }
